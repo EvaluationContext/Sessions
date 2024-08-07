@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AnalysisServices.Runtime.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AnalysisServices.Hosting.AuthenticationByDeviceCodeNotification">
+            <summary>
+            Represents the information regarding an authentication request by device-code.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.Hosting.AuthenticationByDeviceCodeNotification.DeviceCode">
+            <summary>
+            Gets the device-code returned by the service.
+            </summary>
+            <value>A <see cref="T:System.String"/> with the device-code.</value>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.Hosting.AuthenticationByDeviceCodeNotification.VerificationUrl">
+            <summary>
+            Gets the verification URL where the user must navigate to authenticate using the device-code and credentials.
+            </summary>
+            <value>A <see cref="T:System.Uri"/> with the verification URL.</value>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.Hosting.AuthenticationByDeviceCodeNotification.Message">
+            <summary>
+            Gets the user friendly text response that can be used for display purpose.
+            </summary>
+            <value>A <see cref="T:System.String"/> with the message.</value>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.Hosting.AuthenticationByDeviceCodeNotification.ExpiresOn">
+            <summary>
+            Gets the time when the device code will expire.
+            </summary>
+            <value>A <see cref="T:System.DateTimeOffset"/> with the expiration time.</value>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.Security.CertUtils.LoadCertificateByThumbprint(System.String,System.Boolean)">
+            <summary>
+            Loads the certificate given its thumbprint.
+            </summary>
+            <param name="thumbprint">the thumbrint of the certificate.</param>
+            <param name="requirePrivateKey">An indication if a private key is required.</param>
+            <returns>If loaded successfully, the X509Certificate2 object representing the certificate; otherwise, a null reference (Nothing in Visual Basic).</returns>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.AccessToken">
+            <summary>
+            Access token
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.AccessToken.#ctor(System.String,System.DateTimeOffset,System.Object)">
+            <summary>
+            Constructor for AccessToken
+            </summary>
+            <param name="token">Access token</param>
+            <param name="expirationTime">Expiration time</param>
+            <param name="userContext">Context for token management. For example token type.</param>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.AccessToken.Token">
+            <summary>
+            Gets the value of the access token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.AccessToken.ExpirationTime">
+            <summary>
+            Gets the expiration time of the token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.AccessToken.UserContext">
+            <summary>
+            Gets the user context associated with the token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.AccessToken.IsExpired">
+            <summary>
+            Gets an indication if the access token has expired.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.AccessToken.IsValid">
+            <summary>
+            Is token valid
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.AsAzureRedirection">
+            <summary>
+            Represents different modes on handling redirection of AS Azure hosted servers to Power BI hosted servers.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.AsAzureRedirection.Default">
+            <summary>
+            AS Azure hosted server is redirected to a Power BI hosted server based on the default configuration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.AsAzureRedirection.Disabled">
+            <summary>
+            Redirection of the AS Azure hosted server is disabled.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ConnectionExceptionCause">
+            <summary>
+            An indication of the cause of the connection exception.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.Unspecified">
+            <summary>
+            Unspecified cause.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.AuthenticationFailed">
+            <summary>
+            Authentication failure.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.ServerHasMoved">
+            <summary>
+            The server has moved across clusters and new connections should be established.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.LinkReferenceResolutionFailed">
+            <summary>
+            A failure in resolving the link reference to the actual server reference.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.DataStreamingInterrupted">
+            <summary>
+            The data streaming was interrupted due to an exception in the backend.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.ConnectionNotOpen">
+            <summary>
+            The connection is not open anymore.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.InvalidSessionId">
+            <summary>
+            The current session-id is no longer valid.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.TransportProtocolError">
+            <summary>
+            There is an error on the underneath transport-protocol.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.ServerPausedOrScaling">
+            <summary>
+            The server is currently unavailable, as it is either paused or in the middle of a scaling operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.ServerNotReady">
+            <summary>
+            The server is currently unavailable, as it is still starting up.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.XmlaEndpointDisabled">
+            <summary>
+            XMLA endpoint feature is disabled. Turn on Analyze in Excel feature in PowerBI.com to enable this feature.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionExceptionCause.ServerNotFoundInConnectionMode">
+            <summary>
+            Connection to an AAS QSO server, using a specific connection mode, could not be made.
+            Either the replicas are in pending attach or blocked state, or the servers are still being rehydrated.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ConnectionType">
+            <summary>
+            Defines how the Server object connects to the ConnectionString property.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionType.Native">
+            <summary>
+            Connection is defined as proprietary for remote connections.
+            </summary>
+            <!-- direct TCP (using TcpStream) -->
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ConnectionType.Http">
+            <summary>
+            Connects using HTTP protocol.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.HttpChannelHandling">
+            <summary>
+            Represents the way an HTTP-based XMLA channel is managed by the AS Client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.HttpChannelHandling.Default">
+            <summary>
+            The client is handling the channel based on the default settings and configuration of the system.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.HttpChannelHandling.WebRequestBased">
+            <summary>
+            The client is handling the channel using flow that is based on traditional WebRequest infrastructure.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.HttpChannelHandling.PreferHttpClient">
+            <summary>
+            The client will prefer handling the channel using flow that is based on HttpClient infrastructute.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ImpersonationLevel">
+            <summary>
+            Indicates the level of impersonation that the server can use when impersonating the client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ImpersonationLevel.Anonymous">
+            <summary>
+            The client is anonymous to the server. The server process cannot obtain identification information about the client and cannot impersonate the client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ImpersonationLevel.Identify">
+            <summary>
+            The server can obtain the identity of the client. The server can impersonate the client for ACL checking but cannot access system objects as the client.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ImpersonationLevel.Impersonate">
+            <summary>
+            The server process can impersonate the security context of the client when acting on behalf of the client. This information is obtained when the connection is established, not on every call.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ImpersonationLevel.Delegate">
+            <summary>
+            The process can impersonate the security context of the client when acting on behalf of the client. The server process can also make outgoing calls to other servers when acting on behalf of the client.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.IntegratedSecurity">
+            <summary>
+            Defines the type of integrated security used.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.IntegratedSecurity.Sspi">
+            <summary>
+            Windows Integrated Security is used to verify credentials
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.IntegratedSecurity.Basic">
+            <summary>
+            Username and password are used to verify credentials.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.IntegratedSecurity.Federated">
+            <summary>
+            Do not reference this member directly in your code. It supports the Analysis Services infrastructure.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.IntegratedSecurity.ClaimsToken">
+            <summary>
+            Claims based tokens are used to verify credentials.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.IntegratedSecurity.Unspecified">
+            <summary>
+            An unspecified method is used to verify credentials.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ProtectionLevel">
+            <summary>
+            Enumerates the protection level associated with opening a connection to a SSAS Server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtectionLevel.None">
+            <summary>
+            Requires no authentication, no signatures, and no encryption.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtectionLevel.Connection">
+            <summary>
+            Requires authentication, but messages are sent in clear text without signatures.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtectionLevel.Integrity">
+            <summary>
+            Requires authentication and uses signature to detect any tampering of the data which may have occurred between the two end points of a communication.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtectionLevel.Privacy">
+            <summary>
+            Requires authentication, encrypts and signs the messages being transferred between the two end points of a communication. This is the maximum level of protection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ProtocolFormat">
+            <summary>
+            Enumerates the analysis service protocol format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtocolFormat.Default">
+            <summary>
+            The default protocol format.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtocolFormat.Xml">
+            <summary>
+            The protocol format is XML.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.ProtocolFormat.Binary">
+            <summary>
+            The protocol format is binary.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.TransportCompression">
+            <summary>
+            Defines the TransportCompression enumeration.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.TransportCompression.Default">
+            <summary>
+            The compression is Default.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.TransportCompression.None">
+            <summary>
+            The compression is None.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.TransportCompression.Compressed">
+            <summary>
+            The compression is Compressed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AnalysisServices.TransportCompression.Gzip">
+            <summary>
+            The compression is Gzip.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.AsClientException">
+            <summary>
+            Represents an exception that is raised from the AS client.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.AsClientException.#ctor">
+            <summary>
+            Initializes a new instance of the AsClientException class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.AsClientException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the AsClientException class using the specified message.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.AsClientException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the AsClientException class with message and inner exception.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+            <param name="innerException">A <see cref="T:System.Exception"/> inner exception that is the cause of the exception.</param>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.AsClientException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the AsClientException class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ConnectionException">
+            <summary>
+            Represents a connection problem arises between the server and current application; this class cannot be inherited.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ConnectionException.#ctor">
+            <summary>
+            Initializes a new instance of the ConnectionException class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ConnectionException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ConnectionException class using the specified message.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ConnectionException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ConnectionException class with the specified error message and the inner that is the cause of this exception.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+            <param name="innerException">A <see cref="T:System.Exception"/> inner exception that is the cause of the exception.</param>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ConnectionException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the ConnectionException class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="P:Microsoft.AnalysisServices.ConnectionException.ExceptionCause">
+            <summary>
+            Gets a ConnectionExceptionCause value to explain the origin of the exception.
+            </summary>
+            <value>The cause of the exception.</value>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ConnectionException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Sets the System.Runtime.Serialization.SerializationInfo with information about the exception.
+            </summary>
+            <param name="info">The System.Runtime.Serialization.SerializationInfo that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The System.Runtime.Serialization.StreamingContext that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:Microsoft.AnalysisServices.ResponseFormatException">
+            <summary>
+            Represents an error due to bad format in the response.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ResponseFormatException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the ResponseFormatException class with a specified error message.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.ResponseFormatException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the ResponseFormatException class with a specified error message and the inner that is the cause of this exception.
+            </summary>
+            <param name="message">A <see cref="T:System.String"/> that specifies the message that describes what caused the exception.</param>
+            <param name="innerException">A <see cref="T:System.Exception"/> inner exception that is the cause of the exception.</param>
+        </member>
+    </members>
+</doc>

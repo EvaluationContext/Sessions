@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AnalysisServices.Runtime.Windows</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AnalysisServices.Authentication.AadWindowsInteractiveAuthenticationDialog">
+            <summary>
+            A Windows Form based AAD authentication dialog
+            </summary>
+            <remarks>For internal use only.</remarks>
+        </member>
+        <member name="M:Microsoft.AnalysisServices.Authentication.AadWindowsInteractiveAuthenticationDialog.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the resources (other than memory) used by the dialog.
+            </summary>
+            <param name="disposing">True to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+            <remarks>For internal use only.</remarks>
+        </member>
+    </members>
+</doc>
