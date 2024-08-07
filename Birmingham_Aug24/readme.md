@@ -62,7 +62,7 @@ When making changes with Power BI desktop, upon save, changes to the Semantic Mo
 
 The suggest branching stratergy is Git Flow. When working on work items, Developers will create feature branches from the `dev` branch. The naming convention for these branches should be feat.{developer initals}.{work item id} (ie feat.jd.11342). *If you add "#{ticket nubmer}" to a commit message, will link the Work Item. If you add "Fixes #{ticket nubmer}" to a commit message, it will close the the linked Work Item*. When work on the feature is complete a Merge Request (MR) to `dev` will be created. A pre-merge build will occur deploying items. If sucessful the MR will be reviewed by at least 1 Repo reviewer. If approved it will be merged. The Repo Reviewer will be responible for managing MRs into `release` and `main`. A MR into `release` will occur once a release candidate is present in `dev`, deploying item(s) to uat workspace. Following testing and addressing any issues a MR will be raised to `main`, deploying the item(s) to the production workspace.
 
-![Branching Strategy](/BirminghamUserGroup_Aug24/assets/Branching%20Strat.png)
+![Branching Strategy](/Birmingham_Aug24/assets/Branching%20Strat.png)
 
 ## Deployment
 
