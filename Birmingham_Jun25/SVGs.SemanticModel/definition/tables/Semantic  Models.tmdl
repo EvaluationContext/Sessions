@@ -39,7 +39,7 @@ table 'Semantic  Models'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\dim_semantic_models.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\data\dim_semantic_models.csv"),[Delimiter=",", Columns=3, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"SemanticModelID", Int64.Type}, {"WorkspaceID", Int64.Type}, {"SemanticModelName", type text}})
 				in
@@ -47,5 +47,5 @@ table 'Semantic  Models'
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 

@@ -113,7 +113,7 @@ table 'Execution Metrics'
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\fact_refresh_logs.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\data\fact_refresh_logs.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"LogID", Int64.Type}, {"WorkspaceID", Int64.Type}, {"SemanticModelID", Int64.Type}, {"RefreshStartTime", type datetime}, {"RefreshEndTime", type datetime}, {"RefreshDurationSeconds", Int64.Type}, {"CPUCost", type number}, {"Status", type text}}),
 				    #"Duplicated Column" = Table.DuplicateColumn(#"Changed Type", "RefreshStartTime", "RefreshStartTime - Copy"),

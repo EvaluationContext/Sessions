@@ -22,7 +22,7 @@ table Workspaces
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\dim_workspaces.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\User Groups\Birmingham_Jun25\data\dim_workspaces.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"WorkspaceID", Int64.Type}, {"WorkspaceName", type text}})
 				in
