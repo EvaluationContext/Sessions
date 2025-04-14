@@ -1,0 +1,320 @@
+table _Measures
+	lineageTag: a4df59b3-8f84-489f-9313-d110d2728fe5
+
+	measure Duration = AVERAGE( 'Execution Metrics'[RefreshDurationSeconds] )
+		formatString: 0
+		lineageTag: 5fa2b3f5-9680-4b7d-acd8-cafd169a537c
+
+	measure StartDateTime = MIN( 'Execution Metrics'[StartDateTime] )
+		formatString: dd-mmm-yy hh:MM
+		lineageTag: fb826bc6-afa8-430c-bb45-59b58befcac5
+
+		annotation PBI_FormatHint = {"isCustom":true}
+
+	measure 'Most Recent Status' = ```
+			
+			var stat =
+			    MAXX(
+			        TOPN( 
+			            1, 
+			            SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime], 'Execution Metrics'[Status] ), 
+			            'Execution Metrics'[StartDateTime]
+			        )
+			        ,'Execution Metrics'[Status]
+			    )
+			RETURN
+			SWITCH(
+			    stat,
+			    "Succeeded",
+			        "data:image/svg+xml;utf8,
+			        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 100 100'>
+			            <circle cx='50' cy='50' r='45' fill='#37A794'/>
+			            <path d='M25 55 L45 75 L75 35' stroke='#FFFFFF' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/>
+			        </svg>",
+			    "Failed",
+			        "data:image/svg+xml;utf8,
+			        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 100 100'>
+			            <circle cx='50' cy='50' r='45' fill='#DD6B7F'/>
+			            <path d='M30 30 L70 70 M70 30 L30 70' stroke='#FFFFFF' stroke-width='10' stroke-linecap='round'/>
+			        </svg>"
+			)
+			```
+		lineageTag: 76e53ca6-b1e5-47ec-b87f-2e62beea44da
+		dataCategory: ImageUrl
+
+	measure Barcode = ```
+			
+			VAR __svgHeight = 20
+			VAR __svgWidth = 150
+			VAR __Categories = SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime], 'Execution Metrics'[xmlaRequestId] )
+			VAR __Data =
+			    TOPN(
+			        400
+			        ,ADDCOLUMNS(
+			            KEEPFILTERS(
+			                FILTER(
+			                    KEEPFILTERS( __Categories ),
+			                    not ISBLANK( CALCULATE ( MAX( 'Execution Metrics'[Status] ) ) )
+			                )
+			            ),
+			            "Value", CALCULATE ( MAX( 'Execution Metrics'[Status] ) )
+			        )
+			        ,'Execution Metrics'[StartDateTime]
+			        ,DESC
+			    )
+			VAR __All_Categories =
+			    CALCULATETABLE(
+			        FILTER(
+			            KEEPFILTERS( SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime] ) ),
+			            not ISBLANK( CALCULATE ( MAX( 'Execution Metrics'[Status] ) ) ) && not ISBLANK( 'Execution Metrics'[StartDateTime] )
+			        ),
+			        ALLSELECTED()
+			    ) 
+			VAR __MinX_Value = MINX( __All_Categories, 'Execution Metrics'[StartDateTime] )
+			VAR __MaxX_Value = MAXX( __All_Categories, 'Execution Metrics'[StartDateTime] )
+			VAR __RangeX = __MaxX_Value - __MinX_Value
+			VAR __Defs =
+			    "<defs>" &
+			    "<path id='L1' d='M1," & __svgHeight * 1    & " L1," & __svgHeight - (__svgHeight * 1)    & "' stroke='#FFB900' stroke-width='2'/>" & // Started Orange
+			    "<path id='L2' d='M1," & __svgHeight * 0.85 & " L1," & __svgHeight - (__svgHeight * 0.85) & "' stroke='#DD6B7F' stroke-width='2'/>" & // Failed Red
+			    "<path id='L3' d='M1," & __svgHeight * 0.7  & " L1," & __svgHeight - (__svgHeight * 0.7)  & "' stroke='#37A794' stroke-width='2'/>" & // Succeeded Green
+			    "</defs>"
+			VAR __Lines =
+			    CONCATENATEX(
+			        __Data,
+			        VAR __def =
+			            SWITCH(
+			                [Value]
+			                ,"Started",     "L1"
+			                ,"Failed",      "L2"
+			                ,"Succeeded",   "L3"
+			                ,0
+			            )
+			        VAR _x = FORMAT( DIVIDE( 'Execution Metrics'[StartDateTime] - __MinX_Value, __RangeX, 0 ) * 100, "0.0", "en-US" )
+			        RETURN
+			        "<use href='#" & __def & "' x='" & _x & "'/>"
+			        ,",", [value], ASC
+			    )
+			VAR __Svg =
+			    "data:image/svg+xml;utf8, <svg width='" & __svgWidth & "' height='" & __svgHeight & "' xmlns='http://www.w3.org/2000/svg'>" &
+			    __Defs &
+			    __Lines &
+			    "</svg>"
+			RETURN
+			IF( not ISEMPTY(__Data) , __Svg )
+			```
+		lineageTag: dadc3d84-0801-4a9c-b4ff-b5641f83a980
+		dataCategory: ImageUrl
+
+	measure 'Violin Plot' = ```
+			
+			VAR _SvgWidth = 150
+			VAR _SvgHeight = 20
+			
+			VAR _samples = 50
+			VAR _bandwidth = 60 // Kernal width, adjust to avoid over or under fitting
+			
+			VAR _range =
+			    CALCULATE(
+			        MAXX(
+			            VALUES( 'Execution Metrics'[xmlaRequestId] )
+			            ,[Duration]
+			        )
+			        ,ALLSELECTED()
+			    )
+			VAR _rangePerSample = _range / _samples
+			VAR _values =
+			    ADDCOLUMNS(
+			        CALCULATETABLE( 
+			            VALUES( 'Execution Metrics'[xmlaRequestId] )
+			            , not ISBLANK( 'Execution Metrics'[CPUCost] )
+			        )
+			        ,"@Val", [Duration]
+			    )
+			VAR _numValues = COUNTAX( _values, [@Val] )
+			VAR _KDE = // Kernal Density Estimation
+			    ADDCOLUMNS(
+			        GENERATESERIES( 0, _samples + 1, 1 )
+			        ,"@inputX", _rangePerSample * [Value]
+			        ,"@KDE", ( 1 / _numValues ) * SUMX( _values, NORM.DIST( _rangePerSample * [Value], [@val], _bandwidth, false ) ) // Normal distribution for Kernal (Gaussian, Uniform, Triangular etc.)
+			    )
+			VAR _maxKDE = MAXX( _KDE, [@KDE] )
+			VAR _points =
+			    ADDCOLUMNS(
+			        _KDE
+			        ,"@x",
+			            VAR _xInputStart =           0                         // The lowest number of the range input
+			            VAR _xInputEnd =             _range                    // The largest number of the range input
+			            VAR _xOutputStart =          0                         // The lowest number of the range output
+			            VAR _xOutputEnd =            _SvgWidth                 // The largest number of the range output         
+			            VAR _xOutputVal =            _xOutputStart + ((_xOutputEnd - _xOutputStart) / (_xInputEnd - _xInputStart)) * ( [@inputX] - _xInputStart)
+			            RETURN
+			            _xOutputVal
+			        ,"@y",
+			            VAR _yInputStart =           0                         // The lowest number of the range input
+			            VAR _yInputEnd =             _maxKDE                   // The largest number of the range input
+			            VAR _yOutputStart =          _SvgHeight / 2            // The lowest number of the range output
+			            VAR _yOutputEnd =            0                         // The largest number of the range output         
+			            VAR _yOutputVal =            _yOutputStart + ((_yOutputEnd - _yOutputStart) / (_yInputEnd - _yInputStart)) * ([@KDE] - _yInputStart)
+			            RETURN
+			            _yOutputVal
+			    )
+			VAR _pointsAndPreviousPoint = 
+			    NATURALLEFTOUTERJOIN(
+			        _points
+			        ,SELECTCOLUMNS(
+			            _points
+			            ,"Value", [Value] + 1
+			            ,"@prevX", [@x]
+			            ,"@prevY", [@y]
+			        )
+			    )
+			VAR _plusControlPoint = // Calculate control point for cubic Bézier curve. Assumes they half way between points, at the same height as the current point
+			    ADDCOLUMNS(
+			        _pointsAndPreviousPoint
+			        ,"@cx", [@prevX] + (([@x] - [@prevX]) / 2)
+			        ,"@cy", [@y]
+			    )
+			VAR _topCurves =
+			    CONCATENATEX(
+			        _plusControlPoint
+			        ,"S " & [@cx] & " " & [@cy] & ", " & [@x] & " " & [@y] // cubic Bézier curve
+			        , " "
+			        , [Value]
+			   )
+			VAR _bottomCurves = // top curve inverted
+			    CONCATENATEX(
+			        _plusControlPoint
+			        ,"S " & [@cx] & " " & (_SvgHeight / 2) - ([@cy] - (_SvgHeight / 2)) & ", " & [@x] & " " & (_SvgHeight / 2) - ([@y] - (_SvgHeight / 2))
+			        , " "
+			        , [Value]
+			   )
+			VAR _svg =
+			    "data:image/svg+xml;utf8, <svg width='" & _SvgWidth & "' height='" & _SvgHeight &"' xmlns='http://www.w3.org/2000/svg'>" &
+			    "<path d=' M 0 " & (_SvgHeight / 2) & " " & _topCurves & "M " & _SvgWidth & " " & (_SvgHeight / 2) & "' stroke='gray' fill='gray' fill-opacity='50%'/>" &
+			    "<path d=' M 0 " & (_SvgHeight / 2) & " " & _bottomCurves & "M " & _SvgWidth & " " & (_SvgHeight / 2) & "' stroke='gray' fill='gray' fill-opacity='50%'/>" &
+			    "</svg>"
+			RETURN
+			IF( not ISBLANK( _maxKDE ), _svg )
+			```
+		lineageTag: 1666d491-e893-43af-95e5-ab54cef478a8
+		dataCategory: ImageUrl
+
+	measure 'CPU Cost' = SUM( 'Execution Metrics'[CPUCost] )
+		lineageTag: 729592bc-4b9c-4b3f-8164-bb245662fc1b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Heatmap = ```
+			
+			VAR __svgHeight = 20
+			VAR __svgWidth = 150
+			 
+			VAR _numBoxes = 20
+			VAR _boxWidth = __svgWidth / _numBoxes
+			 
+			VAR __Categories = VALUES(  'Execution Metrics'[xmlaRequestId] )
+			VAR __Range =
+			    CALCULATE(
+			        MAXX(
+			            VALUES( 'Execution Metrics'[xmlaRequestId] ),
+			            [Duration]
+			        )
+			        ,ALLSELECTED()
+			    )
+			 
+			VAR __Data =
+			    ADDCOLUMNS(
+			        KEEPFILTERS(
+			            FILTER(
+			                KEEPFILTERS( __Categories ),
+			                not ISBLANK( [Duration] )
+			            )
+			        ),
+			        "@box",
+			            INT( ( [Duration] / __Range) * ( _numBoxes - 1 ) ) + 1
+			    )
+			VAR _countPerBox =
+			    ADDCOLUMNS(
+			        SUMMARIZE( __Data, [@box] )
+			        ,"@x", ( [@box] * _boxWidth ) - _boxWidth
+			        ,"@cnt",
+			            VAR _box =  [@box]
+			            RETURN
+			            CALCULATE( COUNTX ( __Data, IF( [@box] = _box && _box <> 0, 1 ) ) )
+			    )
+			VAR _cntRange = MAXX( _countPerBox, [@cnt] )
+			VAR __Boxes =
+			    CONCATENATEX(
+			        ADDCOLUMNS(
+			            _countPerBox
+			            ,"@Boxes"
+			            ,// Mapping values range 0 -> 255
+			            VAR _inputStart =           0                       // The lowest number of the range input
+			            VAR _inputEnd =             LOG( _cntRange, 10 )    // The largest number of the range input
+			            VAR _outputStart =          255                     // The lowest number of the range output
+			            VAR _outputEnd =            0                       // The largest number of the range output         
+			            VAR _outputVal =            _outputStart + ((_outputEnd - _outputStart) / (_inputEnd - _inputStart)) * ( LOG( [@cnt], 10 ) - _inputStart)
+			            // https://dax.tips/2019/10/02/dax-base-conversions/
+			            VAR ConvertMe = IFERROR( _outputVal, 255 )
+			            VAR Base = 16
+			            VAR BitTable = GENERATESERIES ( 1, 8 )
+			            VAR DEC2HEX =
+			                CONCATENATEX(
+			                    BitTable,
+			                    VAR c = MOD( TRUNC ( ConvertMe / POWER ( base, [value] - 1 ) ), base )
+			                    RETURN SWITCH(c,10,"A",11,"B",12,"C",13,"D",14,"E",15,"F",c),
+			                    ,[Value],Desc
+			                )
+			            VAR HEX = "#" & REPT( RIGHT( DEC2HEX, 2 ), 3 ) & IF( ConvertMe = 255, "00", "" )
+			            RETURN
+			            "<rect id='box' x='" & [@x] & "' y='0' width='" & _boxWidth & "' height='" & __svgHeight & "' fill='" & HEX & "' filter='url(#gradient)'/>"
+			        )
+			        ,[@Boxes]
+			        ," "
+			        ,[@x]
+			    )
+			 
+			VAR __Svg =
+			    "data:image/svg+xml;utf8, <svg width=""" & __svgWidth & """ height=""" & __svgHeight &""" xmlns=""http://www.w3.org/2000/svg"">" &
+			    "<defs>
+			        <filter id=""gradient"" color-interpolation-filters=""sRGB"">
+			            <feComponentTransfer>
+			                <feFuncR type=""table"" tableValues=""1 0.975"" />
+			                <feFuncG type=""table"" tableValues=""0.78 0.975"" />
+			                <feFuncB type=""table"" tableValues=""0.2 0.975"" />
+			            </feComponentTransfer>
+			        </filter>
+			    </defs>" &
+			    __Boxes &
+			    "</svg>"
+			   
+			RETURN
+			IF( not ISEMPTY(__Data), __Svg )
+			```
+		lineageTag: f81415cc-45cf-4f18-81c0-1111b88482cf
+		dataCategory: ImageUrl
+
+	column measure
+		dataType: string
+		isHidden
+		lineageTag: e3e13427-2ecd-450b-a5a9-0773ba7231e1
+		summarizeBy: none
+		sourceColumn: measure
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table({"measure"}, {{""}})
+				in
+				    Source
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
