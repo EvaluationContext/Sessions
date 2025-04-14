@@ -1,0 +1,5 @@
+Jake Duddy, a Lead Metrics Developer at HSBC, specializes in Power BI. He administers a Power BI capacity, and develops tooling and processes to enable developers. He has developed DevOps process, reporting to highlight problematic Semantic Models and measures, and consults on best practices.
+
+Beyond his professional role, Jake is an active member of the BI community. He shares his insights through his blog, [evaluationcontext.github.io](https://evaluationcontext.github.io/), where he shares his experiments and experiences with topics related to the Microsoft analytic stack. He has also spoken at a number of Power BI User Groups
+
+![profile](https://media.licdn.com/dms/image/v2/D4E03AQEr-ccm2IxbNw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1723314501986?e=1750291200&v=beta&t=sBgAy5wQZoI1gSnfrTZ8FB-bPp6k2aZvyTCrBCYOXFs)
