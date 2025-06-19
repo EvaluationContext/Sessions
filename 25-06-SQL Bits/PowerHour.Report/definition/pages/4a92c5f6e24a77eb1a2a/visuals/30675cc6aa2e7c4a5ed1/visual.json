@@ -359,41 +359,6 @@
                   "Value": "'DataFunction'"
                 }
               }
-            },
-            "dataFunction": {
-              "kind": "ItemLocation",
-              "byReference": {
-                "itemId": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'ea555307-5003-48b7-8b22-343cc8191b92'"
-                    }
-                  }
-                },
-                "workspaceId": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'b46a8df5-ec11-41cc-b2ae-1dd3155d8230'"
-                    }
-                  }
-                }
-              },
-              "metadata": {
-                "dataFunction": {
-                  "name": "exerciseToSQL",
-                  "autoRefresh": true,
-                  "parameters": [
-                    {
-                      "name": "exercise",
-                      "dataType": "string",
-                      "isOptional": false,
-                      "type": "SlicerParameter",
-                      "slicer": "99672f9cdc11ca2862ee",
-                      "autoClear": false
-                    }
-                  ]
-                }
-              }
             }
           }
         }
