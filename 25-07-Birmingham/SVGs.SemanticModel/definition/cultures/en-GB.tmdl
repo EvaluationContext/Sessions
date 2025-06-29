@@ -2,7 +2,7 @@ cultureInfo en-GB
 
 	linguisticMetadata =
 			{
-			  "Version": "3.5.0",
+			  "Version": "4.1.0",
 			  "Language": "en-US",
 			  "Entities": {
 			    "workspace": {
@@ -726,7 +726,7 @@ cultureInfo en-GB
 			    "execution_metrics": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics"
+			          "ConceptualEntity": "Refreshes"
 			        }
 			      },
 			      "State": "Generated",
@@ -747,7 +747,7 @@ cultureInfo en-GB
 			    "execution_metrics.xmla_request_id": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "xmlaRequestId"
 			        }
 			      },
@@ -810,7 +810,7 @@ cultureInfo en-GB
 			    "execution_metrics.workspace_ID": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "WorkspaceID"
 			        }
 			      },
@@ -876,7 +876,7 @@ cultureInfo en-GB
 			    "execution_metrics.semantic_model_ID": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "SemanticModelID"
 			        }
 			      },
@@ -1014,7 +1014,7 @@ cultureInfo en-GB
 			    "execution_metrics.start_date_time": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "StartDateTime"
 			        }
 			      },
@@ -1150,7 +1150,7 @@ cultureInfo en-GB
 			    "execution_metrics.end_date_time": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "EndDateTime"
 			        }
 			      },
@@ -1286,7 +1286,7 @@ cultureInfo en-GB
 			    "execution_metrics.refresh_duration_second": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "RefreshDurationSeconds"
 			        }
 			      },
@@ -1421,7 +1421,7 @@ cultureInfo en-GB
 			    "execution_metrics.CPU_cost": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "CPUCost"
 			        }
 			      },
@@ -1550,7 +1550,7 @@ cultureInfo en-GB
 			    "execution_metrics.status": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "Status"
 			        }
 			      },
@@ -1656,7 +1656,7 @@ cultureInfo en-GB
 			    "execution_metrics.start_date": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "StartDate"
 			        }
 			      },
@@ -1789,7 +1789,7 @@ cultureInfo en-GB
 			    "execution_metrics.end_date": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Execution Metrics",
+			          "ConceptualEntity": "Refreshes",
 			          "ConceptualProperty": "EndDate"
 			        }
 			      },
@@ -2097,7 +2097,7 @@ cultureInfo en-GB
 			      "Definition": {
 			        "Binding": {
 			          "ConceptualEntity": "_Measures",
-			          "ConceptualProperty": "Duration"
+			          "ConceptualProperty": "Avg Duration"
 			        }
 			      },
 			      "State": "Generated",
@@ -2431,6 +2431,634 @@ cultureInfo en-GB
 			        }
 			      ],
 			      "SemanticType": "Time"
+			    },
+			    "entity__measure.entity_1__most_recent_status": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "1. Most Recent Status"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "1. most recent status": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "1. most recent category": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "1. most recent importance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "1. most recent prestige": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "1. most recent prominence": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "1. most recent condition": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "1. most recent class": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "1. most recent grade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "1. most recent level": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "1. most recent position": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "1. most recent rank": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity_3__barcode": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "3. Barcode"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "3. barcode": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.violin_plot": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "5. Violin Plot"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "violin plot": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "violin conspiracy": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "violin subversion": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "violin strategy": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "violin stratagem": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "violin plan": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "violin scheme": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "violin design": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "violin intrigue": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "violin storyline": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "violin scenario": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        },
+			        {
+			          "5. Violin Plot": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.CPU_cost": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "CPU Cost"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "CPU cost": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "cost": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "cpu price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cpu charge": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cpu rate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cpu fee": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "cpu total": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "price": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "charge": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "rate": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "fee": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "cpu expenditure": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.475
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity_4__heatmap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "4. Heatmap"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "4. heatmap": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.animation": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Animation"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "animation": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "animatronics": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "simulation": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "cartoon": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.476
+			          }
+			        },
+			        {
+			          "liveliness": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "energy": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "vibrancy": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "vigor": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "vivaciousness": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "dynamism": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        },
+			        {
+			          "enthusiasm": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.466
+			          }
+			        }
+			      ]
+			    },
+			    "entity__measure.entity_2__most_recent_status": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "2. Most Recent Status"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "2. most recent status": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "2. most recent category": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "2. most recent importance": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "2. most recent prestige": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "2. most recent prominence": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "2. most recent condition": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "2. most recent class": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "2. most recent grade": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "2. most recent level": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "2. most recent position": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        },
+			        {
+			          "2. most recent rank": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.757
+			          }
+			        }
+			      ]
 			    }
 			  },
 			  "Relationships": {
@@ -2500,42 +3128,9 @@ cultureInfo en-GB
 			        }
 			      ]
 			    },
-			    "entity__measure_has_semantic_model_icon": {
-			      "Binding": {
-			        "ConceptualEntity": "_Measures"
-			      },
-			      "State": "Generated",
-			      "Roles": {
-			        "entity__measure": {
-			          "Target": {
-			            "Entity": "entity__measure"
-			          }
-			        },
-			        "entity__measure.semantic_model_icon": {
-			          "Target": {
-			            "Entity": "entity__measure.semantic_model_icon"
-			          }
-			        }
-			      },
-			      "Phrasings": [
-			        {
-			          "Attribute": {
-			            "Subject": {
-			              "Role": "entity__measure"
-			            },
-			            "Object": {
-			              "Role": "entity__measure.semantic_model_icon"
-			            }
-			          },
-			          "State": "Generated",
-			          "Weight": 0.99,
-			          "ID": "Phrasing_measures_have_semantic_model_icon"
-			        }
-			      ]
-			    },
 			    "execution_metrics_has_entity__measure_duration": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2568,7 +3163,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_status": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2614,7 +3209,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_CPU_cost": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2668,13 +3263,13 @@ cultureInfo en-GB
 			          },
 			          "State": "Generated",
 			          "Weight": 0.99,
-			          "ID": "CPU_cost_indicates_how_expensive_execution_metrics_are"
+			          "ID": "CPU_cost_indicates_how_expensive_execution_metrics_are1"
 			        }
 			      ]
 			    },
 			    "execution_metrics_has_refresh_duration_second": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2707,7 +3302,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_end_date_time": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2740,7 +3335,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_start_date_time": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2773,7 +3368,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_xmla_request_id": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -2942,6 +3537,66 @@ cultureInfo en-GB
 			        }
 			      ]
 			    },
+			    "execution_metrics_is_expensive1": {
+			      "Binding": {
+			        "ConceptualEntity": "Refreshes"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "execution_metrics": {
+			          "Target": {
+			            "Entity": "execution_metrics"
+			          }
+			        },
+			        "entity__measure.CPU_cost": {
+			          "Target": {
+			            "Entity": "entity__measure.CPU_cost"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Adjective": {
+			            "Subject": {
+			              "Role": "execution_metrics"
+			            },
+			            "Adjectives": [
+			              {
+			                "expensive": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Antonyms": [
+			              {
+			                "cheap": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Measurement": {
+			              "Role": "entity__measure.CPU_cost"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "CPU_cost_indicates_how_expensive_execution_metrics_are"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "execution_metrics"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.CPU_cost"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "execution_metrics_have_CPU_cost"
+			        }
+			      ]
+			    },
 			    "date_has_year_month": {
 			      "Binding": {
 			        "ConceptualEntity": "Dates"
@@ -2977,7 +3632,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_entity__measure_start_date_time": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -3008,9 +3663,207 @@ cultureInfo en-GB
 			        }
 			      ]
 			    },
+			    "execution_metrics_has_entity__measure_entity_1__most_recent_status": {
+			      "Binding": {
+			        "ConceptualEntity": "Refreshes"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "execution_metrics": {
+			          "Target": {
+			            "Entity": "execution_metrics"
+			          }
+			        },
+			        "entity__measure.entity_1__most_recent_status": {
+			          "Target": {
+			            "Entity": "entity__measure.entity_1__most_recent_status"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "execution_metrics"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.entity_1__most_recent_status"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "execution_metrics_have_1__most_recent_status"
+			        }
+			      ]
+			    },
+			    "entity__measure_has_entity_3__barcode": {
+			      "Binding": {
+			        "ConceptualEntity": "_Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__measure": {
+			          "Target": {
+			            "Entity": "entity__measure"
+			          }
+			        },
+			        "entity__measure.entity_3__barcode": {
+			          "Target": {
+			            "Entity": "entity__measure.entity_3__barcode"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__measure"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.entity_3__barcode"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_measures_have_3__barcode"
+			        }
+			      ]
+			    },
+			    "entity__measure_has_violin_plot": {
+			      "Binding": {
+			        "ConceptualEntity": "_Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__measure": {
+			          "Target": {
+			            "Entity": "entity__measure"
+			          }
+			        },
+			        "entity__measure.violin_plot": {
+			          "Target": {
+			            "Entity": "entity__measure.violin_plot"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__measure"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.violin_plot"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_measures_have_violin_plot"
+			        }
+			      ]
+			    },
+			    "entity__measure_has_entity_4__heatmap": {
+			      "Binding": {
+			        "ConceptualEntity": "_Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__measure": {
+			          "Target": {
+			            "Entity": "entity__measure"
+			          }
+			        },
+			        "entity__measure.entity_4__heatmap": {
+			          "Target": {
+			            "Entity": "entity__measure.entity_4__heatmap"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__measure"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.entity_4__heatmap"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_measures_have_4__heatmap"
+			        }
+			      ]
+			    },
+			    "entity__measure_has_animation": {
+			      "Binding": {
+			        "ConceptualEntity": "_Measures"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "entity__measure": {
+			          "Target": {
+			            "Entity": "entity__measure"
+			          }
+			        },
+			        "entity__measure.animation": {
+			          "Target": {
+			            "Entity": "entity__measure.animation"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "entity__measure"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.animation"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "Phrasing_measures_have_animation"
+			        }
+			      ]
+			    },
+			    "execution_metrics_has_entity__measure_entity_2__most_recent_status": {
+			      "Binding": {
+			        "ConceptualEntity": "Refreshes"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "execution_metrics": {
+			          "Target": {
+			            "Entity": "execution_metrics"
+			          }
+			        },
+			        "entity__measure.entity_2__most_recent_status": {
+			          "Target": {
+			            "Entity": "entity__measure.entity_2__most_recent_status"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "execution_metrics"
+			            },
+			            "Object": {
+			              "Role": "entity__measure.entity_2__most_recent_status"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "execution_metrics_have_2__most_recent_status"
+			        }
+			      ]
+			    },
 			    "execution_metrics_has_semantic__model": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -3056,7 +3909,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_workspace": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -3102,7 +3955,7 @@ cultureInfo en-GB
 			    },
 			    "execution_metrics_has_date": {
 			      "Binding": {
-			        "ConceptualEntity": "Execution Metrics"
+			        "ConceptualEntity": "Refreshes"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -3145,6 +3998,11 @@ cultureInfo en-GB
 			          "ID": "dates_have_execution_metrics"
 			        }
 			      ]
+			    }
+			  },
+			  "Agents": {
+			    "Internal": {
+			      "Version": "1.1.0"
 			    }
 			  }
 			}

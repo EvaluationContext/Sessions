@@ -1,4 +1,4 @@
-table 'Execution Metrics'
+table Refreshes
 	lineageTag: 38749f84-aafc-4cb0-9b35-7c23ecb11831
 
 	column xmlaRequestId
@@ -109,7 +109,7 @@ table 'Execution Metrics'
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	partition 'Execution Metrics' = m
+	partition Refreshes = m
 		mode: import
 		source =
 				let
@@ -122,6 +122,8 @@ table 'Execution Metrics'
 				    #"Extracted Date" = Table.TransformColumns(#"Renamed Columns",{{"StartDate", DateTime.Date, type date}, {"EndDate", DateTime.Date, type date}})
 				in
 				    #"Extracted Date"
+
+	changedProperty = Name
 
 	annotation PBI_NavigationStepName = Navigation
 

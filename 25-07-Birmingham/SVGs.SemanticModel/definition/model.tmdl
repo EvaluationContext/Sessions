@@ -8,15 +8,15 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBIDesktopVersion = 2.141.1558.0 (25.03)+75b5f06a991f8f8a8a4d6b6fcd0f66e1ec2d6fdc
+annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
 
-annotation PBI_QueryOrder = ["Workspaces","Semantic  Models","Execution Metrics","_Measures"]
+annotation PBI_QueryOrder = ["Workspaces","Semantic  Models","Refreshes","_Measures"]
 
 annotation PBI_ProTooling = ["DevMode","DaxQueryView_Desktop"]
 
 ref table Workspaces
 ref table 'Semantic  Models'
-ref table 'Execution Metrics'
+ref table Refreshes
 ref table _Measures
 ref table Dates
 

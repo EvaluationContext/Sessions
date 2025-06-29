@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
-  "name": "b3756f0f43f660851bb4",
+  "name": "0e40eaf63da374e15153",
   "position": {
     "x": 59.399454049135578,
     "y": 144.42220200181984,
@@ -86,39 +86,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "1. Most Recent Status"
+                  "Property": "Most Recent Status"
                 }
               },
               "queryRef": "_Measures.Most Recent Status",
-              "nativeQueryRef": "1. Most Recent Status"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "2. Most Recent Status"
-                }
-              },
-              "queryRef": "_Measures.2. Most Recent Status",
-              "nativeQueryRef": "2. Most Recent Status"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "3. Barcode"
-                }
-              },
-              "queryRef": "_Measures.Barcode",
-              "nativeQueryRef": "3. Barcode"
+              "nativeQueryRef": "Most Recent Status"
             },
             {
               "field": {
@@ -164,35 +136,6 @@
               "queryRef": "SparklineData(_Measures.Duration_[Dates.Date])",
               "nativeQueryRef": "Sparkline",
               "displayName": "Sparkline"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "4. Heatmap"
-                }
-              },
-              "queryRef": "_Measures.Heatmap",
-              "nativeQueryRef": "4. Heatmap"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "5. Violin Plot"
-                }
-              },
-              "queryRef": "_Measures.Violin Plot",
-              "nativeQueryRef": "5. Violin Plot",
-              "displayName": "5. Violin Plot"
             }
           ]
         }
@@ -403,48 +346,6 @@
           },
           "selector": {
             "metadata": "SparklineData(_Measures.Duration_[Dates.Date])"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "156.7951432829994D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Barcode"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "100.10982622772988D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.Most Recent Status"
-          }
-        },
-        {
-          "properties": {
-            "value": {
-              "expr": {
-                "Literal": {
-                  "Value": "115.5768940968585D"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "_Measures.2. Most Recent Status"
           }
         },
         {

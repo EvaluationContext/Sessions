@@ -10,20 +10,6 @@
       "nodes": [
         {
           "location": {
-            "x": 106.03156321682729,
-            "y": 196
-          },
-          "nodeIndex": "Execution Metrics",
-          "nodeLineageTag": "38749f84-aafc-4cb0-9b35-7c23ecb11831",
-          "size": {
-            "height": 176,
-            "width": 234
-          },
-          "zIndex": 3,
-          "expandedHeight": 300
-        },
-        {
-          "location": {
             "x": 246,
             "y": 0
           },
@@ -77,6 +63,19 @@
           },
           "zIndex": 0,
           "expandedHeight": 200
+        },
+        {
+          "location": {
+            "x": 106.03156321682729,
+            "y": 196
+          },
+          "nodeIndex": "Refreshes",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0,
+          "expandedHeight": 300
         }
       ],
       "name": "All tables",

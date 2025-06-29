@@ -1,26 +1,26 @@
 table _Measures
 	lineageTag: a4df59b3-8f84-489f-9313-d110d2728fe5
 
-	measure Duration = AVERAGE( 'Execution Metrics'[RefreshDurationSeconds] )
+	measure 'Avg Duration' = AVERAGE( 'Refreshes'[RefreshDurationSeconds] )
 		formatString: 0
 		lineageTag: 5fa2b3f5-9680-4b7d-acd8-cafd169a537c
 
-	measure StartDateTime = MIN( 'Execution Metrics'[StartDateTime] )
+	measure StartDateTime = MIN( 'Refreshes'[StartDateTime] )
 		formatString: dd-mmm-yy hh:MM
 		lineageTag: fb826bc6-afa8-430c-bb45-59b58befcac5
 
 		annotation PBI_FormatHint = {"isCustom":true}
 
-	measure 'Most Recent Status' = ```
+	measure '1. Most Recent Status' = ```
 			
 			var stat =
 			    MAXX(
 			        TOPN( 
 			            1, 
-			            SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime], 'Execution Metrics'[Status] ), 
-			            'Execution Metrics'[StartDateTime]
+			            SUMMARIZE( 'Refreshes', 'Refreshes'[StartDateTime], 'Refreshes'[Status] ), 
+			            'Refreshes'[StartDateTime]
 			        )
-			        ,'Execution Metrics'[Status]
+			        ,'Refreshes'[Status]
 			    )
 			RETURN
 			SWITCH(
@@ -42,11 +42,11 @@ table _Measures
 		lineageTag: 76e53ca6-b1e5-47ec-b87f-2e62beea44da
 		dataCategory: ImageUrl
 
-	measure Barcode = ```
+	measure '3. Barcode' = ```
 			
 			VAR __svgHeight = 20
 			VAR __svgWidth = 150
-			VAR __Categories = SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime], 'Execution Metrics'[xmlaRequestId] )
+			VAR __Categories = SUMMARIZE( 'Refreshes', 'Refreshes'[StartDateTime], 'Refreshes'[xmlaRequestId] )
 			VAR __Data =
 			    TOPN(
 			        400
@@ -54,24 +54,24 @@ table _Measures
 			            KEEPFILTERS(
 			                FILTER(
 			                    KEEPFILTERS( __Categories ),
-			                    not ISBLANK( CALCULATE ( MAX( 'Execution Metrics'[Status] ) ) )
+			                    not ISBLANK( CALCULATE ( MAX( 'Refreshes'[Status] ) ) )
 			                )
 			            ),
-			            "Value", CALCULATE ( MAX( 'Execution Metrics'[Status] ) )
+			            "Value", CALCULATE ( MAX( 'Refreshes'[Status] ) )
 			        )
-			        ,'Execution Metrics'[StartDateTime]
+			        ,'Refreshes'[StartDateTime]
 			        ,DESC
 			    )
 			VAR __All_Categories =
 			    CALCULATETABLE(
 			        FILTER(
-			            KEEPFILTERS( SUMMARIZE( 'Execution Metrics', 'Execution Metrics'[StartDateTime] ) ),
-			            not ISBLANK( CALCULATE ( MAX( 'Execution Metrics'[Status] ) ) ) && not ISBLANK( 'Execution Metrics'[StartDateTime] )
+			            KEEPFILTERS( SUMMARIZE( 'Refreshes', 'Refreshes'[StartDateTime] ) ),
+			            not ISBLANK( CALCULATE ( MAX( 'Refreshes'[Status] ) ) ) && not ISBLANK( 'Refreshes'[StartDateTime] )
 			        ),
 			        ALLSELECTED()
 			    ) 
-			VAR __MinX_Value = MINX( __All_Categories, 'Execution Metrics'[StartDateTime] )
-			VAR __MaxX_Value = MAXX( __All_Categories, 'Execution Metrics'[StartDateTime] )
+			VAR __MinX_Value = MINX( __All_Categories, 'Refreshes'[StartDateTime] )
+			VAR __MaxX_Value = MAXX( __All_Categories, 'Refreshes'[StartDateTime] )
 			VAR __RangeX = __MaxX_Value - __MinX_Value
 			VAR __Defs =
 			    "<defs>" &
@@ -90,7 +90,7 @@ table _Measures
 			                ,"Succeeded",   "L3"
 			                ,0
 			            )
-			        VAR _x = FORMAT( DIVIDE( 'Execution Metrics'[StartDateTime] - __MinX_Value, __RangeX, 0 ) * 100, "0.0", "en-US" )
+			        VAR _x = FORMAT( DIVIDE( 'Refreshes'[StartDateTime] - __MinX_Value, __RangeX, 0 ) * 100, "0.0", "en-US" )
 			        RETURN
 			        "<use href='#" & __def & "' x='" & _x & "'/>"
 			        ,",", [value], ASC
@@ -106,7 +106,7 @@ table _Measures
 		lineageTag: dadc3d84-0801-4a9c-b4ff-b5641f83a980
 		dataCategory: ImageUrl
 
-	measure 'Violin Plot' = ```
+	measure '5. Violin Plot' = ```
 			
 			VAR _SvgWidth = 150
 			VAR _SvgHeight = 20
@@ -117,8 +117,8 @@ table _Measures
 			VAR _range =
 			    CALCULATE(
 			        MAXX(
-			            VALUES( 'Execution Metrics'[xmlaRequestId] )
-			            ,[Duration]
+			            VALUES( 'Refreshes'[xmlaRequestId] )
+			            ,[Avg Duration]
 			        )
 			        ,ALLSELECTED()
 			    )
@@ -126,10 +126,10 @@ table _Measures
 			VAR _values =
 			    ADDCOLUMNS(
 			        CALCULATETABLE( 
-			            VALUES( 'Execution Metrics'[xmlaRequestId] )
-			            , not ISBLANK( 'Execution Metrics'[CPUCost] )
+			            VALUES( 'Refreshes'[xmlaRequestId] )
+			            , not ISBLANK( 'Refreshes'[CPUCost] )
 			        )
-			        ,"@Val", [Duration]
+			        ,"@Val", [Avg Duration]
 			    )
 			VAR _numValues = COUNTAX( _values, [@Val] )
 			VAR _KDE = // Kernal Density Estimation
@@ -200,12 +200,12 @@ table _Measures
 		lineageTag: 1666d491-e893-43af-95e5-ab54cef478a8
 		dataCategory: ImageUrl
 
-	measure 'CPU Cost' = SUM( 'Execution Metrics'[CPUCost] )
+	measure 'CPU Cost' = SUM( 'Refreshes'[CPUCost] )
 		lineageTag: 729592bc-4b9c-4b3f-8164-bb245662fc1b
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure Heatmap = ```
+	measure '4. Heatmap' = ```
 			
 			VAR __svgHeight = 20
 			VAR __svgWidth = 150
@@ -213,12 +213,12 @@ table _Measures
 			VAR _numBoxes = 20
 			VAR _boxWidth = __svgWidth / _numBoxes
 			 
-			VAR __Categories = VALUES(  'Execution Metrics'[xmlaRequestId] )
+			VAR __Categories = VALUES(  'Refreshes'[xmlaRequestId] )
 			VAR __Range =
 			    CALCULATE(
 			        MAXX(
-			            VALUES( 'Execution Metrics'[xmlaRequestId] ),
-			            [Duration]
+			            VALUES( 'Refreshes'[xmlaRequestId] ),
+			            [Avg Duration]
 			        )
 			        ,ALLSELECTED()
 			    )
@@ -228,11 +228,11 @@ table _Measures
 			        KEEPFILTERS(
 			            FILTER(
 			                KEEPFILTERS( __Categories ),
-			                not ISBLANK( [Duration] )
+			                not ISBLANK( [Avg Duration] )
 			            )
 			        ),
 			        "@box",
-			            INT( ( [Duration] / __Range) * ( _numBoxes - 1 ) ) + 1
+			            INT( ( [Avg Duration] / __Range) * ( _numBoxes - 1 ) ) + 1
 			    )
 			VAR _countPerBox =
 			    ADDCOLUMNS(
@@ -294,6 +294,192 @@ table _Measures
 			```
 		lineageTag: f81415cc-45cf-4f18-81c0-1111b88482cf
 		dataCategory: ImageUrl
+
+	measure Animation =
+			
+			// https://www.linkedin.com/pulse/dynamic-powerbi-backgrounds-james-mounsey-moran-od40e/?trackingId=L1rWV3KIdzDRobJ%2BjTAFCw%3D%3D
+			VAR selectedOption =
+			    // Get the selected background option, defaulting to "Light" if none is selected
+			    SELECTEDVALUE( Workspaces[WorkspaceName] )
+			
+			// -- Define the full color palette for the animation cycle --
+			VAR color1_start = "#F2EFE9"
+			VAR color1_end = "#FFFFFF"
+			VAR color2_start = "#1A1A1A"
+			VAR color2_end = "#575757"
+			VAR color3_start = "#A8A8A8"
+			VAR color3_end = "#D8D8D8"
+			VAR color4_start = "#F08030"
+			VAR color4_end = "#FFD6C1"
+			VAR color5_start = "#78C850"
+			VAR color5_end = "#E6FFE6"
+			VAR color6_start = "#6890F0"
+			VAR color6_end = "#E6F5FF"
+			VAR color7_start = "#F8D030"
+			VAR color7_end = "#FFFFE0"
+			VAR color8_start = "#FFA500"
+			VAR color8_end = "#FFE6CC"
+			VAR color_default_start = "#6BFAD8" // Default color
+			VAR color_default_end = "#FFFFFF"
+			
+			// -- Set the initial gradient colors for the 4-second intro animation --
+			VAR gradientStart =
+			    // Define gradient start colours for each option
+			    SWITCH(
+			        TRUE(),
+			        selectedOption = "Workspace 1", color1_start,
+			        selectedOption = "Workspace 2", color2_start,
+			        selectedOption = "Workspace 3", color3_start,
+			        selectedOption = "Workspace 4", color4_start,
+			        selectedOption = "Workspace 5", color5_start,
+			        selectedOption = "Workspace 6", color6_start,
+			        selectedOption = "Workspace 7", color7_start,
+			        selectedOption = "Workspace 8", color8_start,
+			        color_default_start
+			    )
+			
+			VAR gradientEnd =
+			    // Define gradient end colours for a lighter variation of each option
+			    SWITCH(
+			        TRUE(),
+			        selectedOption = "Workspace 1", color1_end,
+			        selectedOption = "Workspace 2", color2_end,
+			        selectedOption = "Workspace 3", color3_end,
+			        selectedOption = "Workspace 4", color4_end,
+			        selectedOption = "Workspace 5", color5_end,
+			        selectedOption = "Workspace 6", color6_end,
+			        selectedOption = "Workspace 7", color7_end,
+			        selectedOption = "Workspace 8", color8_end,
+			        color_default_end
+			    )
+			
+			// -- Create the cycling color sequences for the main animation --
+			VAR gradientStartCycle =
+			    SWITCH(
+			        TRUE(),
+			        selectedOption = "Workspace 1", color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start,
+			        selectedOption = "Workspace 2", color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start,
+			        selectedOption = "Workspace 3", color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start,
+			        selectedOption = "Workspace 4", color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start,
+			        selectedOption = "Workspace 5", color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start,
+			        selectedOption = "Workspace 6", color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start,
+			        selectedOption = "Workspace 7", color7_start & ";" & color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start,
+			        selectedOption = "Workspace 8", color8_start & ";" & color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start,
+			        color_default_start & ";" & color1_start & ";" & color2_start & ";" & color3_start & ";" & color4_start & ";" & color5_start & ";" & color6_start & ";" & color7_start & ";" & color8_start & ";" & color_default_start
+			    )
+			
+			VAR gradientEndCycle =
+			    SWITCH(
+			        TRUE(),
+			        selectedOption = "Workspace 1", color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end,
+			        selectedOption = "Workspace 2", color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end,
+			        selectedOption = "Workspace 3", color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end,
+			        selectedOption = "Workspace 4", color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end,
+			        selectedOption = "Workspace 5", color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end,
+			        selectedOption = "Workspace 6", color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end,
+			        selectedOption = "Workspace 7", color7_end & ";" & color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end,
+			        selectedOption = "Workspace 8", color8_end & ";" & color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end,
+			        color_default_end & ";" & color1_end & ";" & color2_end & ";" & color3_end & ";" & color4_end & ";" & color5_end & ";" & color6_end & ";" & color7_end & ";" & color8_end & ";" & color_default_end
+			    )
+			
+			VAR warmOffWhite = "#F2EFE9" // A warm off-white base colour
+			
+			VAR svg =
+			    // Construct the SVG with animated gradients and vignette effect
+			    "<svg xmlns='http://www.w3.org/2000/svg' width='150' height='20' preserveAspectRatio='none'>" &
+			    "   <defs>" &
+			    // Set gradient direction from bottom-left (x1='0%' y1='100%') to top-right (x2='100%' y2='0%')
+			    "       <linearGradient id='bg-gradient' x1='0%' y1='100%' x2='100%' y2='0%'>" &
+			    "           <stop offset='0%' stop-color='" & warmOffWhite & "'>" &
+			    "               <animate attributeName='stop-color' values='" & warmOffWhite & ";" & gradientStart & "' dur='4s' begin='0s' fill='freeze' repeatCount='1'/>" &
+			    "               <animate attributeName='stop-color' values='" & gradientStartCycle & "' dur='27s' begin='4s' repeatCount='indefinite'/>" &
+			    "           </stop>" &
+			    "           <stop offset='100%' stop-color='" & warmOffWhite & "'>" &
+			    "               <animate attributeName='stop-color' values='" & warmOffWhite & ";" & gradientEnd & "' dur='4s' begin='0s' fill='freeze' repeatCount='1'/>" &
+			    "               <animate attributeName='stop-color' values='" & gradientEndCycle & "' dur='27s' begin='4s' repeatCount='indefinite'/>" &
+			    "           </stop>" &
+			    // Animations for the gradient angle
+			    "           <animate attributeName='x1' values='0%; -20%; 0%; 20%; 0%' dur='15s' repeatCount='indefinite'/>" &
+			    "           <animate attributeName='y1' values='100%; 120%; 100%; 80%; 100%' dur='15s' repeatCount='indefinite'/>" &
+			    "           <animate attributeName='x2' values='100%; 120%; 100%; 80%; 100%' dur='15s' repeatCount='indefinite'/>" &
+			    "           <animate attributeName='y2' values='0%; -20%; 0%; 20%; 0%' dur='15s' repeatCount='indefinite'/>" &
+			    "       </linearGradient>" &
+			    "       <radialGradient id='vignette-gradient' cx='50%' cy='50%' r='75%' fx='50%' fy='50%'>" &
+			    "           <stop offset='0%' stop-color='black' stop-opacity='0'/>" &
+			    "           <stop offset='60%' stop-color='black' stop-opacity='0'/>" &
+			    "           <stop offset='80%' stop-color='#575757' stop-opacity='0.02'/>" &
+			    "           <stop offset='100%' stop-color='#575757' stop-opacity='0.1'/>" &
+			    "       </radialGradient>" &
+			    "   </defs>" &
+			    "   <rect width='1920' height='1080' fill='url(#bg-gradient)'/>" &
+			    "   <rect width='1920' height='1080' fill='url(#vignette-gradient)'/>" &
+			    "</svg>"
+			
+			RETURN
+			    if( not ISINSCOPE( 'Semantic  Models'[SemanticModelName] ), "data:image/svg+xml;utf8," & svg )
+		lineageTag: b944031c-8c12-4d9c-a4e4-98e8a015c556
+		dataCategory: ImageUrl
+
+	measure '2. Most Recent Status' = ```
+			
+			VAR stat =
+			    MAXX(
+			        TOPN(
+			            1,
+			            SUMMARIZE( 'Refreshes', 'Refreshes'[StartDateTime], 'Refreshes'[Status] ),
+			            'Refreshes'[StartDateTime]
+			        ),
+			        'Refreshes'[Status]
+			    )
+			RETURN
+			    SWITCH(
+			        stat,
+			        "Succeeded",
+			        "data:image/svg+xml;utf8,
+			        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 100 100'>
+			            <circle cx='50' cy='50' r='45' fill='#37A794'/>
+			            <path d='M25 55 L45 75 L75 35' stroke='#FFFFFF' stroke-width='10' stroke-linecap='round' stroke-linejoin='round' fill='none'/>
+			        </svg>",
+			        "Failed",
+			        "data:image/svg+xml;utf8,
+			        <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 100 100'>
+			            <g>
+			                <animate 
+			                    attributeName='opacity'
+			                    values='1;0.3;1'
+			                    keyTimes='0;0.5;1'
+			                    dur='2s'
+			                    repeatCount='indefinite' 
+			                />
+			                <circle cx='50' cy='50' r='45' fill='#DD6B7F'/>
+			                <path d='M30 30 L70 70 M70 30 L30 70' stroke='#FFFFFF' stroke-width='10' stroke-linecap='round'/>
+			            </g>
+			        </svg>"
+			    )
+			```
+		lineageTag: 5ff1c3bb-a4f4-4c36-b887-cb3660f655be
+		dataCategory: ImageUrl
+
+	measure '# Refreshes' =
+			
+			CALCULATE(
+			    COUNTROWS( 'Refreshes' )
+			)
+		formatString: 0
+		lineageTag: f2b09f68-c573-4935-bc80-106706a8954c
+
+	measure 'Most Recent Status' = ```
+			
+			MAXX(
+			        TOPN( 
+			            1, 
+			            SUMMARIZE( 'Refreshes', 'Refreshes'[StartDateTime], 'Refreshes'[Status] ), 
+			            'Refreshes'[StartDateTime]
+			        )
+			        ,'Refreshes'[Status]
+			    )
+			```
+		lineageTag: 540163ae-9dcb-4ba2-bceb-84276a634f46
 
 	column measure
 		dataType: string
