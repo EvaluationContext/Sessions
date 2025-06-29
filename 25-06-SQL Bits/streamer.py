@@ -26,6 +26,12 @@ DEBUG_DISPLAY_VISUALIZATION = True
 BATCH_INTERVAL = 1  # seconds to wait before sending a batch of events
 QUEUE_MAX_SIZE = 1000 # Max number of events to hold in memory
 
+# --- Garmin Device Configuration ---
+# Option 1: Filter by device name (most common approach)
+GARMIN_DEVICE_NAME = "Forerunner"  # Adjust this to match your exact device name
+# Option 2: Filter by MAC address (most specific - uncomment and set if needed)
+GARMIN_MAC_ADDRESS = "14:13:0b:44:fb:6b"  # Replace with your device's MAC address
+
 # --- Heart Rate ---
 HR_SERVICE_UUID = "0000180d-0000-1000-8000-00805f9b34fb"
 HR_MEASUREMENT_CHAR_UUID = "00002a37-0000-1000-8000-00805f9b34fb"
@@ -134,12 +140,8 @@ class BaseStreamer:
                     sample_event = json.loads(events[0].body)
                     print(f"[{datetime.datetime.now()}]   Sample event: {sample_event}")
                 await self.on_events_sent(events)
-                # In DEBUG mode, we've "processed" these events.
-                # No 'continue' here, so it effectively simulates sending and clears the batch.
-                self.last_send_time = datetime.datetime.now() # Simulate sending time update
-                continue # Add this back if you ONLY want to print in debug mode, otherwise remove it to let the actual batching logic run if producer_client is available.
-                        # For your current issue, if DEBUG_LOCAL_ONLY is True, producer_client will be None, so the 'else' block won't run anyway.
-                        # The key is to ensure the loop continues to pull new events.
+                self.last_send_time = datetime.datetime.now()
+                continue
 
             # Original logic for sending to Event Hub (only runs if not in debug_mode)
             if self.producer_client:
@@ -169,36 +171,6 @@ class BaseStreamer:
                     print(f"    Error type: {type(e).__name__}")
                 except Exception as e:
                     print(f"[{datetime.datetime.now()}] ❌ An unexpected error occurred while sending batch: {e}")
-
-            if self.producer_client:
-                try:
-                    batch = await self.producer_client.create_batch()
-                    for event in events:
-                        try:
-                            batch.add(event)
-                        except ValueError:
-                            # Batch is full, send and create a new one
-                            await self.producer_client.send_batch(batch)
-                            self.events_sent += len(batch)
-                            print(f"[{datetime.datetime.now()}] Sent intermediate batch of {len(batch)} events.")
-                            batch = await self.producer_client.create_batch()
-                            batch.add(event) # Add the event that didn't fit
-
-                    if len(batch) > 0:
-                        await self.producer_client.send_batch(batch)
-                        self.events_sent += len(batch)
-
-                    print(f"[{datetime.datetime.now()}] ✅ Successfully sent a total of {len(events)} events to '{self.event_hub_name}'.")
-                    self.last_send_time = datetime.datetime.now()
-                    await self.on_events_sent(events)
-
-                except AzureError as e:
-                    print(f"[{datetime.datetime.now()}] ❌ Failed to send batch to Azure: {e}")
-                    print(f"    Error type: {type(e).__name__}")
-                    # You could add logic here to re-queue the events if needed
-                except Exception as e:
-                    print(f"[{datetime.datetime.now()}] ❌ An unexpected error occurred while sending batch: {e}")
-
 
     async def on_events_sent(self, events):
         """Override this method to handle post-send actions."""
@@ -238,20 +210,20 @@ class BaseStreamer:
 
     async def stop(self):
         """Stop the streamer and clean up resources."""
-        print(f"[{datetime.datetime.now()}] DEBUG: stop() method called. Setting self.running to False.")## delete
+        print(f"[{datetime.datetime.now()}] DEBUG: stop() method called. Setting self.running to False.")
         print(f"\n[{datetime.datetime.now()}] Stopping {self.__class__.__name__}...")
         self.running = False
 
         if not self.event_queue.empty():
             print(f"[{datetime.datetime.now()}] Sending final {self.event_queue.qsize()} events...")
-            await asyncio.sleep(BATCH_INTERVAL + 1) # Give the sender one last chance to run
+            await asyncio.sleep(BATCH_INTERVAL + 1)
 
         if self.sender_task and not self.sender_task.done():
             self.sender_task.cancel()
             try:
                 await self.sender_task
             except asyncio.CancelledError:
-                pass # Expected
+                pass
 
         if self.producer_client:
             try:
@@ -263,13 +235,12 @@ class BaseStreamer:
         await self.cleanup()
         print(f"[{datetime.datetime.now()}] Final stats: Queued={self.events_queued}, Sent={self.events_sent}")
 
-
     async def cleanup(self):
         """Override this method for specific cleanup tasks."""
         pass
 
 class HeartRateStreamer(BaseStreamer):
-    """Streams heart rate data from any BLE heart rate device to Azure Event Hub."""
+    """Streams heart rate data from a specific Garmin device to Azure Event Hub."""
     def __init__(self, event_hub_namespace: str, event_hub_name: str):
         super().__init__(event_hub_namespace, event_hub_name)
         self.client: Optional[BleakClient] = None
@@ -306,7 +277,7 @@ class HeartRateStreamer(BaseStreamer):
         hr_event = {
             "timestamp": datetime.datetime.now(datetime.timezone.utc).isoformat(),
             "heart_rate_bpm": heart_rate,
-            "source": "BLE Heart Rate Device",
+            "source": "Garmin Forerunner",
             "device_address": device_address,
             "data_type": "heart_rate"
         }
@@ -314,9 +285,38 @@ class HeartRateStreamer(BaseStreamer):
         self.add_event(hr_event)
         self.display_heart(heart_rate)
 
+    def is_target_garmin_device(self, device: BLEDevice) -> bool:
+        """Check if the device is the target Garmin watch."""
+        device_name = device.name or ""
+        
+        # Method 1: Check by device name (most common)
+        if GARMIN_DEVICE_NAME.lower() in device_name.lower():
+            return True
+        
+        # Method 2: Check by MAC address (uncomment if using MAC filtering)
+        if hasattr(globals(), 'GARMIN_MAC_ADDRESS') and device.address.upper() == GARMIN_MAC_ADDRESS.upper():
+            return True
+        
+        # Method 3: Check for common Garmin device name patterns
+        garmin_patterns = [
+            "forerunner"
+            "Forerunner"
+            "forerunner 955",
+            "forerunner955", 
+            "fr955",
+            "garmin",
+            # Add other patterns your device might use
+        ]
+        
+        for pattern in garmin_patterns:
+            if pattern.lower() in device_name.lower():
+                return True
+        
+        return False
+
     async def find_hr_device(self) -> Optional[BLEDevice]:
-        """Scan for and find any heart rate device."""
-        print(f"[{datetime.datetime.now()}] Scanning for heart rate devices with service UUID {HR_SERVICE_UUID}...")
+        """Scan for and find the specific Garmin heart rate device."""
+        print(f"[{datetime.datetime.now()}] Scanning for Garmin Forerunner with heart rate service...")
         try:
             devices = await BleakScanner.discover(service_uuids=[HR_SERVICE_UUID], timeout=15.0)
         except BleakError as e:
@@ -330,46 +330,66 @@ class HeartRateStreamer(BaseStreamer):
             print(f"[{datetime.datetime.now()}] No heart rate devices found.")
             return None
 
+        print(f"[{datetime.datetime.now()}] Found {len(devices)} heart rate device(s):")
+        target_device = None
+        
         for device in devices:
-            print(f"  Found: {device.name or 'Unknown'} ({device.address}) RSSI: {device.rssi}")
-        return devices[0]
+            device_name = device.name or "Unknown"
+            print(f"  Found: {device_name} ({device.address}) RSSI: {device.rssi}")
+            
+            if self.is_target_garmin_device(device):
+                print(f"  ✅ This matches your target Garmin device!")
+                target_device = device
+            else:
+                print(f"  ❌ Not the target device")
+
+        if target_device:
+            print(f"[{datetime.datetime.now()}] Selected device: {target_device.name} ({target_device.address})")
+            return target_device
+        else:
+            print(f"[{datetime.datetime.now()}] ❌ Target Garmin device '{GARMIN_DEVICE_NAME}' not found.")
+            print("Available devices did not match the target. Check the device name or MAC address configuration.")
+            return None
 
     async def start_monitoring(self):
         """Start heart rate monitoring."""
         while self.running and not self.killer.kill_now:
             device = await self.find_hr_device()
             if not device:
-                print("No device found. Retrying in 15 seconds...")
+                print(f"Target Garmin device not found. Retrying in 15 seconds...")
                 await asyncio.sleep(15)
                 continue
 
             print(f"[{datetime.datetime.now()}] Connecting to {device.name or 'Unknown'} ({device.address})")
-            async with BleakClient(device.address) as client:
-                self.client = client
-                if not client.is_connected:
-                    print(f"[{datetime.datetime.now()}] Failed to connect.")
-                    continue
+            try:
+                async with BleakClient(device.address) as client:
+                    self.client = client
+                    if not client.is_connected:
+                        print(f"[{datetime.datetime.now()}] Failed to connect.")
+                        continue
 
-                print(f"[{datetime.datetime.now()}] Connected successfully. Starting notifications...")
-                try:
-                    handler = lambda s, d: self.handle_hr_notification(device.address, s, d)
-                    await client.start_notify(HR_MEASUREMENT_CHAR_UUID, handler)
-                    print(f"[{datetime.datetime.now()}] Streaming HR data. Press Ctrl+C to stop.")
+                    print(f"[{datetime.datetime.now()}] Connected successfully to Garmin device. Starting notifications...")
+                    try:
+                        handler = lambda s, d: self.handle_hr_notification(device.address, s, d)
+                        await client.start_notify(HR_MEASUREMENT_CHAR_UUID, handler)
+                        print(f"[{datetime.datetime.now()}] Streaming HR data from Garmin. Press Ctrl+C to stop.")
 
-                    while client.is_connected and self.running and not self.killer.kill_now:
-                        await asyncio.sleep(1)
+                        while client.is_connected and self.running and not self.killer.kill_now:
+                            await asyncio.sleep(1)
 
-                except Exception as e:
-                    print(f"[{datetime.datetime.now()}] Error during notification: {e}")
-                finally:
-                    print("Device disconnected.")
-                    if self.client and self.client.is_connected:
-                        await self.client.stop_notify(HR_MEASUREMENT_CHAR_UUID)
-
+                    except Exception as e:
+                        print(f"[{datetime.datetime.now()}] Error during notification: {e}")
+                    finally:
+                        print("Device disconnected.")
+                        if self.client and self.client.is_connected:
+                            await self.client.stop_notify(HR_MEASUREMENT_CHAR_UUID)
+            except Exception as e:
+                print(f"[{datetime.datetime.now()}] Connection error: {e}")
+                print("Retrying in 15 seconds...")
+                await asyncio.sleep(15)
 
     async def cleanup(self):
         """Clean up BLE resources."""
-        # The BleakClient context manager handles disconnection
         print("Heart rate monitoring stopped.")
         self.clear_console()
 
@@ -404,10 +424,10 @@ class AudioStreamer(BaseStreamer):
             if len(audio_np) == 0:
                 return 0.0
             rms = np.sqrt(np.mean(audio_np.astype(np.float64)**2))
-            if rms < 1.0: # Prevent log(0) error
+            if rms < 1.0:
                 return 0.0
             db = 20 * math.log10(rms / 32767.0)
-            normalized_db = max(0, min(100, db + 90)) # Shift and clamp
+            normalized_db = max(0, min(100, db + 90))
             return normalized_db
         except Exception as e:
             print(f"Error calculating decibels: {e}")
@@ -444,7 +464,7 @@ class AudioStreamer(BaseStreamer):
                         self.display_speaker(max_db)
                         self.last_update_time = current_time
             except Empty:
-                await asyncio.sleep(0.01) # Sleep briefly to yield control
+                await asyncio.sleep(0.01)
             except Exception as e:
                 print(f"Error processing audio data: {e}")
                 await asyncio.sleep(0.1)
@@ -453,7 +473,6 @@ class AudioStreamer(BaseStreamer):
         """Initialize PyAudio with error handling."""
         try:
             self.audio = pyaudio.PyAudio()
-            # This is a basic check. A more robust check would iterate devices.
             self.audio.get_default_input_device_info()
             return True
         except Exception as e:
@@ -464,22 +483,21 @@ class AudioStreamer(BaseStreamer):
 
     async def start_monitoring(self):
         """Start audio monitoring."""
-        print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() ENTERED.") # delete
+        print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() ENTERED.")
         if not self.init_audio():
-            print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() EXITED due to init failure.") #delete
+            print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() EXITED due to init failure.")
             print("Audio initialization failed. Skipping audio monitoring.")
             return
 
         processing_task = asyncio.create_task(self.process_audio_data())
         self.audio_running = True
 
-        # Run PyAudio in a separate thread to avoid blocking asyncio loop
         loop = asyncio.get_running_loop()
         await loop.run_in_executor(None, self.run_pyaudio_stream)
 
-        print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() EXITED.") # delete
+        print(f"[{datetime.datetime.now()}] DEBUG: AudioStreamer.start_monitoring() EXITED.")
 
-        await processing_task # Wait for the processing task to finish on shutdown
+        await processing_task
 
     def run_pyaudio_stream(self):
         """Blocking method to run the PyAudio stream."""
@@ -493,7 +511,7 @@ class AudioStreamer(BaseStreamer):
         )
         print(f"[{datetime.datetime.now()}] Audio monitoring started...")
         while self.running and not self.killer.kill_now and self.audio_stream.is_active():
-            time.sleep(0.1) # Keep thread alive
+            time.sleep(0.1)
         self.audio_running = False
 
     async def cleanup(self):
@@ -530,7 +548,7 @@ async def main():
         print("Welcome to the Azure Event Hub Streamer!")
         print("Choose an option:")
         print("1. Run Audio Streamer")
-        print("2. Run Heart Rate Streamer")
+        print("2. Run Heart Rate Streamer (Garmin Forerunner 955)")
         choice = input("Enter your choice (1/2): ")
 
         if choice == '1':
@@ -544,16 +562,14 @@ async def main():
         while not killer.kill_now:
             await asyncio.sleep(1)
             if streamer_task and streamer_task.done():
-                # Task finished, possibly due to an error.
                 if streamer_task.exception():
                     raise streamer_task.exception()
-                break # Exit gracefully
+                break
 
     except (KeyboardInterrupt, SystemExit):
         print("\nMain loop interrupted.")
     except Exception as e:
         print(f"\nAn unexpected error occurred in main: {e}")
-        # Add more detailed error printing if available
         import traceback
         traceback.print_exc()
     finally:
@@ -565,7 +581,6 @@ async def main():
             except asyncio.CancelledError:
                 pass
         print("Shutdown complete.")
-
 
 if __name__ == "__main__":
     asyncio.run(main())
