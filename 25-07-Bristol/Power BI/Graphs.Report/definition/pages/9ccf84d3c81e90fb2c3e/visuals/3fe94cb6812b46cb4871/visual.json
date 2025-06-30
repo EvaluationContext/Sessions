@@ -451,51 +451,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "9fa6b86908e2b0e5fb83",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Workspaces"
-              }
-            },
-            "Property": "Workspace Name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "d0115beabe6047140aea",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Items"
-              }
-            },
-            "Property": "Item Type"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "3c3b23bb255641ef7ad1",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Items"
-              }
-            },
-            "Property": "Item Name"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

@@ -65,7 +65,7 @@ table 'Access To Items'
 		queryGroup: permissions
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\Sessions\Bristol_Jul25\Power BI\data\permissions\access_to_item.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\EvaluationContext\Sessions\25-07-Bristol\Power BI\data\permissions\access_to_item.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Inserted Text Before Delimiter" = Table.AddColumn(#"Promoted Headers", "Text Before Delimiter", each Text.BeforeDelimiter([accessType], " "), type text),
 				    #"Removed Columns" = Table.RemoveColumns(#"Inserted Text Before Delimiter",{"accessType"}),
@@ -73,7 +73,7 @@ table 'Access To Items'
 				in
 				    #"Renamed Columns"
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 
 	annotation PBI_NavigationStepName = Navigation
 

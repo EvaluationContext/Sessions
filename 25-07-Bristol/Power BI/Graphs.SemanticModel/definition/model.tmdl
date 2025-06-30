@@ -12,25 +12,37 @@ queryGroup permissions
 
 queryGroup QueryPlan
 
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup Kusto
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup 'Dynamic Parameters'
+
 	annotation PBI_QueryGroupOrder = 1
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBIDesktopVersion = 2.144.878.0 (25.06)+9cca29236de5114792f4d7188221f91ad4a5cc50
+annotation PBIDesktopVersion = 2.144.1155.0 (25.06)+46435b07013d2a234d7fd007083a9e70b8e79f1c
 
-annotation PBI_QueryOrder = ["Workspaces","Semantic Models","Reports","Access To Items","Access To Items Edges","Items","_Measures","Logical Query Plan","Physical Query Plan"]
+annotation PBI_QueryOrder = ["Workspaces","Semantic Models","Reports","Access To Items","Permission Triplets","DP_Users","DP_Permissions","DP_Items","Permission Triplets (DQ)","Items","_Measures","Logical Query Plan","Physical Query Plan","_StartingNodes","_EndingNodes","_Permissions"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
 ref table 'Semantic Models'
 ref table 'Access To Items'
-ref table 'Access To Items Edges'
+ref table 'Permission Triplets'
 ref table Reports
 ref table Workspaces
 ref table Items
 ref table _Measures
 ref table 'Logical Query Plan'
 ref table 'Physical Query Plan'
+ref table 'Permission Triplets (DQ)'
+ref table DP_Users
+ref table DP_Permissions
+ref table DP_Items
 
 ref cultureInfo en-GB
 

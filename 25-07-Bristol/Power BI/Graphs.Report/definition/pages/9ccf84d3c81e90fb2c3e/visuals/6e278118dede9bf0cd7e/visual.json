@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "6e278118dede9bf0cd7e",
   "position": {
     "x": 1127.864455000381,
@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcName"
@@ -34,7 +34,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstName"
@@ -52,7 +52,7 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "Edge Selection"
@@ -151,7 +151,7 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "Edge Selection"
@@ -163,7 +163,7 @@
           "From": [
             {
               "Name": "a",
-              "Entity": "Access To Items Edges",
+              "Entity": "Permission Triplets",
               "Type": 0
             }
           ],

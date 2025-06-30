@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "563357991e22da3e637f",
   "position": {
     "x": 1127.864455000381,
@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcName"
@@ -39,7 +39,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcType"
@@ -57,7 +57,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstName"
@@ -76,7 +76,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstType"
@@ -201,7 +201,7 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "Edge Selection"
@@ -213,7 +213,7 @@
           "From": [
             {
               "Name": "a",
-              "Entity": "Access To Items Edges",
+              "Entity": "Permission Triplets",
               "Type": 0
             }
           ],

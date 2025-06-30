@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "5f45674afee4a2a5dc1d",
   "position": {
-    "x": 1132.1828225658383,
-    "y": 86.512465174943529,
-    "z": 7000,
-    "height": 485.55987514868008,
-    "width": 770.02929695295722,
-    "tabOrder": 9000
+    "x": 989.75740207074375,
+    "y": 59.836671482968654,
+    "z": 1000,
+    "height": 531.6635400617871,
+    "width": 895.58821416312094,
+    "tabOrder": 0
   },
   "visual": {
     "visualType": "deneb7E15AEF80B9E4D4F8E12924291ECE89A",
@@ -141,14 +141,14 @@
             "viewportHeight": {
               "expr": {
                 "Literal": {
-                  "Value": "475.5598751486801D"
+                  "Value": "521.6635400617871D"
                 }
               }
             },
             "viewportWidth": {
               "expr": {
                 "Literal": {
-                  "Value": "760.0292969529572D"
+                  "Value": "885.5882141631209D"
                 }
               }
             }
@@ -168,7 +168,7 @@
             "jsonSpec": {
               "expr": {
                 "Literal": {
-                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega/v5.json\",\n  \"description\": \"A force-directed graph for a DAX Query Plan with Node and Edge Indices\",\n  \"width\": 700,\n  \"height\": 500,\n  \"padding\": 5,\n  \"autosize\": \"none\",\n  \"background\": \"#263238\",\n  \"signals\": [\n    {\"name\": \"cx\", \"update\": \"width / 2\"},\n    {\"name\": \"cy\", \"update\": \"height / 2\"},\n    {\"name\": \"nodeRadius\", \"value\": 8},\n    {\"name\": \"nodeCharge\", \"value\": -30},\n    {\"name\": \"linkDistance\", \"value\": 30},\n    {\"name\": \"static\", \"value\": false},\n    {\"name\": \"gravityX\", \"value\": 0.2},\n    {\"name\": \"gravityY\", \"value\": 0.9},\n    {\n      \"description\": \"State variable for active node fix status.\",\n      \"name\": \"fix\",\n      \"value\": false,\n      \"on\": [\n        {\n          \"events\": \"symbol:pointerout[!event.buttons], window:pointerup\",\n          \"update\": \"false\"\n        },\n        {\"events\": \"symbol:pointerover\", \"update\": \"fix || true\"},\n        {\n          \"events\": \"[symbol:pointerdown, window:pointerup] > window:pointermove!\",\n          \"update\": \"xy()\",\n          \"force\": true\n        }\n      ]\n    },\n    {\n      \"description\": \"Graph node most recently interacted with.\",\n      \"name\": \"node\",\n      \"value\": null,\n      \"on\": [\n        {\n          \"events\": \"symbol:pointerover\",\n          \"update\": \"fix === true ? item() : node\"\n        }\n      ]\n    },\n    {\n      \"description\": \"Flag to restart Force simulation upon data changes.\",\n      \"name\": \"restart\",\n      \"value\": false,\n      \"on\": [{\"events\": {\"signal\": \"fix\"}, \"update\": \"fix && fix.length\"}]\n    }\n  ],\n  \"data\": [\n    {\n      \"name\": \"dataset\"\n    },\n    {\n      \"name\": \"node-data\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\n          \"type\": \"project\",\n          \"fields\": [\n            \"dstid\",\n            \"operation\",\n            \"level\",\n            \"records\",\n            \"operationType\",\n            \"operationShort\"\n          ],\n          \"as\": [\"index\", \"Operation\", \"Level\", \"Records\"]\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.index)\",\n          \"as\": \"index\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.srcid)\",\n          \"as\": \"dstid\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.dstid)\",\n          \"as\": \"dstid\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"length(datum.operationShort) * (width / 160)\",\n          \"as\": \"operationShortLen\"\n        }\n      ]\n    },\n    {\n      \"name\": \"link-data\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\"type\": \"filter\", \"expr\": \"datum.srcid != null\"},\n        {\n          \"type\": \"project\",\n          \"fields\": [\"srcid\", \"dstid\", \"srcid\", \"dstid\"], // Project srcid and dstid twice\n          \"as\": [\"source\", \"target\", \"edgeSrcId\", \"edgeDstId\"] // Alias the second set for labels\n        }\n      ]\n    }\n  ],\n  \"legends\": [\n    {\n      \"direction\": \"vertical\",\n      \"legendX\": 1050,\n      \"legendY\": 0,\n      \"orient\": \"none\",\n      \"stroke\": \"color\",\n      \"fill\": \"color\",\n      \"titleColor\": \"#b6bcdd\",\n      \"padding\": 10,\n      \"encode\": {\n        \"title\": {\"update\": {\"fontSize\": {\"value\": 14}}},\n        \"symbols\": {\"update\": {\"fillOpacity\": {\"value\": 0.4}}},\n        \"labels\": {\n          \"update\": {\"fontSize\": {\"value\": 12}, \"fill\": {\"value\": \"#b6bcdd\"}}\n        }\n      }\n    }\n  ],\n  \"scales\": [\n    {\n      \"name\": \"xscale\",\n      \"type\": \"band\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"Level\", \"sort\": true},\n      \"paddingOuter\": 1,\n      \"range\": \"width\"\n    },\n    {\n      \"name\": \"yscale\",\n      \"type\": \"band\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"index\", \"sort\": true},\n      \"range\": \"height\"\n    },\n    {\n      \"name\": \"color\",\n      \"type\": \"ordinal\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"operationType\"},\n      \"range\": {\"scheme\": \"tableau10\"}\n    },\n    {\n      \"name\": \"size\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"Records\"},\n      \"range\": [300, 2000]\n    }\n  ],\n  \"marks\": [\n    {\n      \"name\": \"nodes\",\n      \"type\": \"symbol\",\n      \"zindex\": 1,\n      \"from\": {\"data\": \"node-data\"},\n      \"on\": [\n        {\n          \"trigger\": \"fix\",\n          \"modify\": \"node\",\n          \"values\": \"fix === true ? {fx: node.x, fy: node.y} : {fx: fix[0], fy: fix[1]}\"\n        },\n        {\"trigger\": \"!fix\", \"modify\": \"node\", \"values\": \"{fx: null, fy: null}\"}\n      ],\n      \"encode\": {\n        \"enter\": {\n          \"size\": {\"scale\": \"size\", \"field\": \"Records\"},\n          \"stroke\": {\"scale\": \"color\", \"field\": \"operationType\"},\n          \"fill\": {\"scale\": \"color\", \"field\": \"operationType\"},\n          \"fillOpacity\": {\"value\": 0.1},\n          \"xfocus\": {\"scale\": \"xscale\", \"field\": \"Level\", \"band\": 0.5},\n          \"yfocus\": {\"scale\": \"yscale\", \"field\": \"index\", \"band\": 0.5},\n          \"tooltip\": {\n            \"signal\": \"{OperationType: datum.operationType, Operation: datum.Operation, Records: datum.Records}\"\n          }\n        },\n        \"update\": {\"cursor\": {\"value\": \"pointer\"}}\n      },\n      \"transform\": [\n        {\n          \"type\": \"force\",\n          \"iterations\": 300,\n          \"restart\": {\"signal\": \"restart\"},\n          \"static\": {\"signal\": \"static\"},\n          \"signal\": \"force\",\n          \"forces\": [\n            {\"force\": \"center\", \"x\": {\"signal\": \"cx\"}, \"y\": {\"signal\": \"cy\"}},\n            {\"force\": \"collide\", \"radius\": {\"signal\": \"nodeRadius\"}},\n            {\"force\": \"nbody\", \"strength\": {\"signal\": \"nodeCharge\"}},\n            {\n              \"force\": \"link\",\n              \"links\": \"link-data\",\n              \"distance\": {\"signal\": \"linkDistance\"},\n              \"id\": \"index\"\n            },\n            {\"force\": \"x\", \"x\": \"xfocus\", \"strength\": {\"signal\": \"gravityX\"}},\n            {\"force\": \"y\", \"y\": \"yfocus\", \"strength\": {\"signal\": \"gravityY\"}}\n          ]\n        }\n      ]\n    },\n    {\n      \"type\": \"path\",\n      \"from\": {\"data\": \"link-data\"},\n      \"interactive\": false,\n      \"encode\": {\n        \"update\": {\"stroke\": {\"value\": \"#ccc\"}, \"strokeWidth\": {\"value\": 0.5}}\n      },\n      \"transform\": [\n        {\n          \"type\": \"linkpath\",\n          \"require\": {\"signal\": \"force\"},\n          \"shape\": \"line\",\n          \"sourceX\": \"datum.source.x\",\n          \"sourceY\": \"datum.source.y\",\n          \"targetX\": \"datum.target.x\",\n          \"targetY\": \"datum.target.y\"\n        }\n      ]\n    },\n    {\n      \"type\": \"text\",\n      \"name\": \"labels\",\n      \"from\": {\"data\": \"nodes\"},\n      \"zindex\": 2,\n      \"interactive\": false,\n      \"enter\": {},\n      \"encode\": {\n        \"update\": {\n          \"fill\": {\"signal\": \"''white''\"},\n          \"y\": {\"field\": \"y\"},\n          \"x\": {\"field\": \"x\"},\n          \"text\": {\"field\": \"datum.operationShort\"},\n          \"align\": {\"value\": \"left\"},\n          \"fontSize\": {\"value\": 10},\n          \"baseline\": {\"value\": \"top\"},\n          \"limit\": {\"signal\": \"clamp(60, 1, 1000)\"},\n          \"ellipsis\": {\"value\": \" \"}\n        }\n      }\n    }\n    // {\n    //   \"type\": \"text\",\n    //   \"name\": \"edge-labels\",\n    //   \"from\": {\"data\": \"link-data\"},\n    //   \"zindex\": 2,\n    //   \"interactive\": false,\n    //   \"encode\": {\n    //     \"update\": {\n    //       \"fill\": {\"value\": \"#ADD8E6\"},\n    //       \"x\": {\"signal\": \"(datum.source.x + datum.target.x) / 2\"},\n    //       \"y\": {\"signal\": \"(datum.source.y + datum.target.y) / 2\"},\n    //       \"text\": {\"signal\": \"datum.edgeSrcId + ''->'' + datum.edgeDstId\"},\n    //       \"align\": {\"value\": \"center\"},\n    //       \"fontSize\": {\"value\": 9},\n    //       \"baseline\": {\"value\": \"bottom\"}\n    //     }\n    //   }\n    // }\n  ]\n}'"
+                  "Value": "'{\n  \"$schema\": \"https://vega.github.io/schema/vega/v5.json\",\n  \"description\": \"A force-directed graph for a DAX Query Plan with Node and Edge Indices\",\n  // \"width\": 700,\n  // \"height\": 500,\n  \"padding\": 5,\n  // \"autosize\": \"none\",\n  \"background\": \"#263238\",\n  \"signals\": [\n    {\"name\": \"cx\", \"update\": \"width / 2\"},\n    {\"name\": \"cy\", \"update\": \"height / 2\"},\n    {\"name\": \"nodeRadius\", \"value\": 8},\n    {\"name\": \"nodeCharge\", \"value\": -30},\n    {\"name\": \"linkDistance\", \"value\": 30},\n    {\"name\": \"static\", \"value\": false},\n    {\"name\": \"gravityX\", \"value\": 0.2},\n    {\"name\": \"gravityY\", \"value\": 0.9},\n    {\n      \"description\": \"State variable for active node fix status.\",\n      \"name\": \"fix\",\n      \"value\": false,\n      \"on\": [\n        {\n          \"events\": \"symbol:pointerout[!event.buttons], window:pointerup\",\n          \"update\": \"false\"\n        },\n        {\"events\": \"symbol:pointerover\", \"update\": \"fix || true\"},\n        {\n          \"events\": \"[symbol:pointerdown, window:pointerup] > window:pointermove!\",\n          \"update\": \"xy()\",\n          \"force\": true\n        }\n      ]\n    },\n    {\n      \"description\": \"Graph node most recently interacted with.\",\n      \"name\": \"node\",\n      \"value\": null,\n      \"on\": [\n        {\n          \"events\": \"symbol:pointerover\",\n          \"update\": \"fix === true ? item() : node\"\n        }\n      ]\n    },\n    {\n      \"description\": \"Flag to restart Force simulation upon data changes.\",\n      \"name\": \"restart\",\n      \"value\": false,\n      \"on\": [{\"events\": {\"signal\": \"fix\"}, \"update\": \"fix && fix.length\"}]\n    }\n  ],\n  \"data\": [\n    {\n      \"name\": \"dataset\"\n    },\n    {\n      \"name\": \"node-data\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\n          \"type\": \"project\",\n          \"fields\": [\n            \"dstid\",\n            \"operation\",\n            \"level\",\n            \"records\",\n            \"operationType\",\n            \"operationShort\"\n          ],\n          \"as\": [\"index\", \"Operation\", \"Level\", \"Records\"]\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.index)\",\n          \"as\": \"index\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.srcid)\",\n          \"as\": \"dstid\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"toNumber(datum.dstid)\",\n          \"as\": \"dstid\"\n        },\n        {\n          \"type\": \"formula\",\n          \"expr\": \"length(datum.operationShort) * (width / 160)\",\n          \"as\": \"operationShortLen\"\n        }\n      ]\n    },\n    {\n      \"name\": \"link-data\",\n      \"source\": \"dataset\",\n      \"transform\": [\n        {\"type\": \"filter\", \"expr\": \"datum.srcid != null\"},\n        {\n          \"type\": \"project\",\n          \"fields\": [\"srcid\", \"dstid\", \"srcid\", \"dstid\"], // Project srcid and dstid twice\n          \"as\": [\"source\", \"target\", \"edgeSrcId\", \"edgeDstId\"] // Alias the second set for labels\n        }\n      ]\n    }\n  ],\n  \"legends\": [\n    {\n      \"direction\": \"vertical\",\n      \"legendX\": 1050,\n      \"legendY\": 0,\n      \"orient\": \"none\",\n      \"stroke\": \"color\",\n      \"fill\": \"color\",\n      \"titleColor\": \"#b6bcdd\",\n      \"padding\": 10,\n      \"encode\": {\n        \"title\": {\"update\": {\"fontSize\": {\"value\": 14}}},\n        \"symbols\": {\"update\": {\"fillOpacity\": {\"value\": 0.4}}},\n        \"labels\": {\n          \"update\": {\"fontSize\": {\"value\": 12}, \"fill\": {\"value\": \"#b6bcdd\"}}\n        }\n      }\n    }\n  ],\n  \"scales\": [\n    {\n      \"name\": \"xscale\",\n      \"type\": \"band\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"Level\", \"sort\": true},\n      \"paddingOuter\": 1,\n      \"range\": \"width\"\n    },\n    {\n      \"name\": \"yscale\",\n      \"type\": \"band\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"index\", \"sort\": true},\n      \"range\": \"height\"\n    },\n    {\n      \"name\": \"color\",\n      \"type\": \"ordinal\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"operationType\"},\n      \"range\": {\"scheme\": \"tableau10\"}\n    },\n    {\n      \"name\": \"size\",\n      \"domain\": {\"data\": \"node-data\", \"field\": \"Records\"},\n      \"range\": [300, 2000]\n    }\n  ],\n  \"marks\": [\n    {\n      \"name\": \"nodes\",\n      \"type\": \"symbol\",\n      \"zindex\": 1,\n      \"from\": {\"data\": \"node-data\"},\n      \"on\": [\n        {\n          \"trigger\": \"fix\",\n          \"modify\": \"node\",\n          \"values\": \"fix === true ? {fx: node.x, fy: node.y} : {fx: fix[0], fy: fix[1]}\"\n        },\n        {\"trigger\": \"!fix\", \"modify\": \"node\", \"values\": \"{fx: null, fy: null}\"}\n      ],\n      \"encode\": {\n        \"enter\": {\n          \"size\": {\"scale\": \"size\", \"field\": \"Records\"},\n          \"stroke\": {\"scale\": \"color\", \"field\": \"operationType\"},\n          \"fill\": {\"scale\": \"color\", \"field\": \"operationType\"},\n          \"fillOpacity\": {\"value\": 0.1},\n          \"xfocus\": {\"scale\": \"xscale\", \"field\": \"Level\", \"band\": 0.5},\n          \"yfocus\": {\"scale\": \"yscale\", \"field\": \"index\", \"band\": 0.5},\n          \"tooltip\": {\n            \"signal\": \"{OperationType: datum.operationType, Operation: datum.Operation, Records: datum.Records}\"\n          }\n        },\n        \"update\": {\"cursor\": {\"value\": \"pointer\"}}\n      },\n      \"transform\": [\n        {\n          \"type\": \"force\",\n          \"iterations\": 300,\n          \"restart\": {\"signal\": \"restart\"},\n          \"static\": {\"signal\": \"static\"},\n          \"signal\": \"force\",\n          \"forces\": [\n            {\"force\": \"center\", \"x\": {\"signal\": \"cx\"}, \"y\": {\"signal\": \"cy\"}},\n            {\"force\": \"collide\", \"radius\": {\"signal\": \"nodeRadius\"}},\n            {\"force\": \"nbody\", \"strength\": {\"signal\": \"nodeCharge\"}},\n            {\n              \"force\": \"link\",\n              \"links\": \"link-data\",\n              \"distance\": {\"signal\": \"linkDistance\"},\n              \"id\": \"index\"\n            },\n            {\"force\": \"x\", \"x\": \"xfocus\", \"strength\": {\"signal\": \"gravityX\"}},\n            {\"force\": \"y\", \"y\": \"yfocus\", \"strength\": {\"signal\": \"gravityY\"}}\n          ]\n        }\n      ]\n    },\n    {\n      \"type\": \"path\",\n      \"from\": {\"data\": \"link-data\"},\n      \"interactive\": false,\n      \"encode\": {\n        \"update\": {\"stroke\": {\"value\": \"#ccc\"}, \"strokeWidth\": {\"value\": 0.5}}\n      },\n      \"transform\": [\n        {\n          \"type\": \"linkpath\",\n          \"require\": {\"signal\": \"force\"},\n          \"shape\": \"line\",\n          \"sourceX\": \"datum.source.x\",\n          \"sourceY\": \"datum.source.y\",\n          \"targetX\": \"datum.target.x\",\n          \"targetY\": \"datum.target.y\"\n        }\n      ]\n    },\n    {\n      \"type\": \"text\",\n      \"name\": \"labels\",\n      \"from\": {\"data\": \"nodes\"},\n      \"zindex\": 2,\n      \"interactive\": false,\n      \"enter\": {},\n      \"encode\": {\n        \"update\": {\n          \"fill\": {\"signal\": \"''white''\"},\n          \"y\": {\"field\": \"y\"},\n          \"x\": {\"field\": \"x\"},\n          \"text\": {\"field\": \"datum.operationShort\"},\n          \"align\": {\"value\": \"left\"},\n          \"fontSize\": {\"value\": 10},\n          \"baseline\": {\"value\": \"top\"},\n          \"limit\": {\"signal\": \"clamp(60, 1, 1000)\"},\n          \"ellipsis\": {\"value\": \" \"}\n        }\n      }\n    }\n    // {\n    //   \"type\": \"text\",\n    //   \"name\": \"edge-labels\",\n    //   \"from\": {\"data\": \"link-data\"},\n    //   \"zindex\": 2,\n    //   \"interactive\": false,\n    //   \"encode\": {\n    //     \"update\": {\n    //       \"fill\": {\"value\": \"#ADD8E6\"},\n    //       \"x\": {\"signal\": \"(datum.source.x + datum.target.x) / 2\"},\n    //       \"y\": {\"signal\": \"(datum.source.y + datum.target.y) / 2\"},\n    //       \"text\": {\"signal\": \"datum.edgeSrcId + ''->'' + datum.edgeDstId\"},\n    //       \"align\": {\"value\": \"center\"},\n    //       \"fontSize\": {\"value\": 9},\n    //       \"baseline\": {\"value\": \"bottom\"}\n    //     }\n    //   }\n    // }\n  ]\n}'"
                 }
               }
             },
@@ -338,7 +338,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstId"
@@ -354,7 +354,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstName"
@@ -370,7 +370,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstType"
@@ -386,7 +386,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcId"
@@ -402,7 +402,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcName"
@@ -418,7 +418,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcType"
@@ -434,7 +434,7 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "Edge Selection"

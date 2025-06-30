@@ -382,37 +382,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "a23ad8a049fcf71ae2f1",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Principal Icon"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "e15bf1acae0dd31bdee3",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Access To Items"
-              }
-            },
-            "Property": "principalName"
-          }
-        },
-        "type": "Categorical"
-      }
-    ]
   }
 }

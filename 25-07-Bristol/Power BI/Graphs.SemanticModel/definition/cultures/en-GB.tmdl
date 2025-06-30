@@ -1421,7 +1421,7 @@ cultureInfo en-GB
 			    "access_to_items_edges": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges"
+			          "ConceptualEntity": "Permission Triplets"
 			        }
 			      },
 			      "State": "Generated",
@@ -1543,7 +1543,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.access_to_item_group_id": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "accessToItemGroupId"
 			        }
 			      },
@@ -1666,7 +1666,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.src_id": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "srcId"
 			        }
 			      },
@@ -1729,7 +1729,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.src_type": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "srcType"
 			        }
 			      },
@@ -1852,7 +1852,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.src_name": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "srcName"
 			        }
 			      },
@@ -1915,7 +1915,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.dst_id": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "dstId"
 			        }
 			      },
@@ -1984,7 +1984,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.dst_type": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "dstType"
 			        }
 			      },
@@ -2113,7 +2113,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.dst_name": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "dstName"
 			        }
 			      },
@@ -2182,7 +2182,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.edge_selection": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "Edge Selection"
 			        }
 			      },
@@ -5405,7 +5405,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.src_colour": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "srcColour"
 			        }
 			      },
@@ -5428,7 +5428,7 @@ cultureInfo en-GB
 			    "access_to_items_edges.edges": {
 			      "Definition": {
 			        "Binding": {
-			          "ConceptualEntity": "Access To Items Edges",
+			          "ConceptualEntity": "Permission Triplets",
 			          "ConceptualProperty": "# Edges"
 			        }
 			      },
@@ -6367,7 +6367,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_edge_selection": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6400,7 +6400,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_dst_name": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6433,7 +6433,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_dst_type": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6466,7 +6466,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_dst_id": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6499,7 +6499,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_src_name": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6532,7 +6532,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_src_type": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6565,7 +6565,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_src_id": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -6598,7 +6598,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_access_to_item_group_id": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -7016,7 +7016,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_src_colour": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {
@@ -7049,7 +7049,7 @@ cultureInfo en-GB
 			    },
 			    "access_to_items_edges_has_edges": {
 			      "Binding": {
-			        "ConceptualEntity": "Access To Items Edges"
+			        "ConceptualEntity": "Permission Triplets"
 			      },
 			      "State": "Generated",
 			      "Roles": {

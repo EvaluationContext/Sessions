@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
   "name": "c4d52d9ecbc207afb96a",
   "position": {
     "x": 1123.0490525467008,
@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcId"
@@ -34,7 +34,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcName"
@@ -48,7 +48,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "srcType"
@@ -62,7 +62,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstId"
@@ -76,7 +76,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstName"
@@ -90,7 +90,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "dstType"
@@ -104,7 +104,7 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Access To Items Edges"
+                      "Entity": "Permission Triplets"
                     }
                   },
                   "Property": "Edge Selection"
@@ -123,7 +123,7 @@
               "Column": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Access To Items Edges"
+                    "Entity": "Permission Triplets"
                   }
                 },
                 "Property": "srcId"
@@ -332,7 +332,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstId"
@@ -347,7 +347,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstName"
@@ -362,7 +362,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "dstType"
@@ -377,7 +377,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcId"
@@ -392,7 +392,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcName"
@@ -407,7 +407,7 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "srcType"
@@ -422,7 +422,7 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Access To Items Edges"
+                "Entity": "Permission Triplets"
               }
             },
             "Property": "Edge Selection"

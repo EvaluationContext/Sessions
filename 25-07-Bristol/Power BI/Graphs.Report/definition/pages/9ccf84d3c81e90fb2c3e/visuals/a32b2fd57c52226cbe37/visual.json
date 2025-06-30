@@ -645,48 +645,6 @@
             }
           ]
         }
-      },
-      {
-        "name": "a1f15be630a4332e2570",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Workspaces"
-              }
-            },
-            "Property": "Workspace Name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "33f954360881cb409c2b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Items"
-              }
-            },
-            "Property": "Item Name"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "e6bcfa06525591ae47f3",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "# Users"
-          }
-        },
-        "type": "Advanced"
       }
     ]
   }

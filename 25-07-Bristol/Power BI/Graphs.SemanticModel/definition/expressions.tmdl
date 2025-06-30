@@ -1,0 +1,27 @@
+expression _StartingNodes = "Excelsior ZetaExcelsior 1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 689d409e-86a5-4716-befe-dc2b4909c3e5
+	queryGroup: 'Dynamic Parameters'
+	parameterValuesColumn: DP_Items.'Item Name'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression _EndingNodes = "Vincent Bates" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 3b0377ca-23a1-4d27-b336-c6a16251c029
+	queryGroup: 'Dynamic Parameters'
+	parameterValuesColumn: DP_Users.principalName
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+
+expression _Permissions = "Read" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: f11ab79f-2a7f-425f-ace3-04d9b753fa45
+	queryGroup: 'Dynamic Parameters'
+	parameterValuesColumn: DP_Permissions.permission
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

@@ -33,7 +33,7 @@ table Reports
 		queryGroup: permissions
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\Sessions\Bristol_Jul25\Power BI\data\permissions\reports.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\EvaluationContext\Sessions\25-07-Bristol\Power BI\data\permissions\reports.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"reportId", type text}, {"workspaceId", type text}, {"reportName", type text}}),
 				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"workspaceId"}),

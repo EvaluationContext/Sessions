@@ -52,7 +52,7 @@ table Items
 		queryGroup: permissions
 		source =
 				let
-				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\Presentations\Sessions\Bristol_Jul25\Power BI\data\permissions\items.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents("C:\Users\jhd74\OneDrive\Documents\EvaluationContext\Sessions\25-07-Bristol\Power BI\data\permissions\items.csv"),[Delimiter=",", Columns=5, Encoding=1252, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"itemId", type text}, {"itemName", type text}, {"itemType", type text}, {"workspaceId", type text}}),
 				    #"Renamed Columns" = Table.RenameColumns(#"Changed Type",{{"itemName", "Item Name"}, {"itemType", "Item Type"}})
@@ -61,5 +61,5 @@ table Items
 
 	annotation PBI_NavigationStepName = Navigation
 
-	annotation PBI_ResultType = Table
+	annotation PBI_ResultType = Exception
 
